@@ -513,6 +513,7 @@
 
 /* Focus and Accessibility */
 .submit-btn:focus-visible,
+.guest-continue-btn:focus-visible,
 .google-btn:focus-visible,
 .phone-btn:focus-visible,
 .forgot-password:focus-visible,
