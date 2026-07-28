@@ -3,6 +3,7 @@ import { MessageCircle, ArrowRight } from 'lucide-react';
 import AdvisorCard from '../components/AdvisorCard';
 import AppHeader from '../components/AppHeader';
 import CopyrightNotice from '../components/CopyrightNotice';
+import CareerSourcesSection from '../components/CareerSourcesSection';
 import { useAppConfig } from '../contexts/AppConfigContext';
 
 const HomePage = ({ onNavigateToChat, onTryAsGuest, isAuthenticated, onNavigateToHome, onNavigateToCanvas }) => {
@@ -75,6 +76,8 @@ const HomePage = ({ onNavigateToChat, onTryAsGuest, isAuthenticated, onNavigateT
             })}
           </div>
         </div>
+
+        <CareerSourcesSection />
       </main>
       {/* Footer */}
       <footer className="footer">

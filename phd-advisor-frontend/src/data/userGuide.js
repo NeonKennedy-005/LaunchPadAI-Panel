@@ -105,6 +105,7 @@ Open Canvas from the sidebar. Layout and widgets auto-save in your browser.`,
 - **Materials polish:** Resume Optimizer + Internship Search Strategist
 - **Interview week:** Interview Coach + Career Path Mentor
 - **Stuck after rejections:** Ask multiple advisors to compare targeting, resume, and networking
+- **Citeable research:** Upload files from \`docs/career_knowledge/\` (employers, recruiting, networking) so advisors can ground answers in NACE and university sources
 
 ## Theme
 Switch light/dark mode from the toggle in the header.`,

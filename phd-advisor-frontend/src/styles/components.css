@@ -224,6 +224,62 @@
 }
 
 /* CTA Button */
+.career-sources-section {
+  max-width: 1100px;
+  margin: 0 auto 64px;
+  padding: 0 24px;
+}
+
+.career-sources-intro {
+  text-align: center;
+  color: var(--text-secondary, #475569);
+  max-width: 720px;
+  margin: 0 auto 28px;
+  line-height: 1.5;
+}
+
+.career-sources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .career-sources-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.career-source-card {
+  background: var(--bg-primary, #fff);
+  border: 1px solid var(--border-primary, #e2e8f0);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.career-source-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f1f5f9;
+}
+
+.career-source-link {
+  margin-top: auto;
+  color: #0f766e;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.career-source-link:hover {
+  text-decoration: underline;
+}
+
 .cta-button {
   display: inline-flex;
   align-items: center;

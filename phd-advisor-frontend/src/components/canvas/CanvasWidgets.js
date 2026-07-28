@@ -1528,28 +1528,52 @@ export function PhdJourneyWidget({ state, setState }) {
 // Static curated list of useful internship/career tools, plus user-added links.
 const PHD_RESOURCE_GROUPS = [
   {
+    label: 'What employers look for',
+    items: [
+      { name: 'NACE — Resume attributes employers seek', href: 'https://www.naceweb.org/talent-acquisition/candidate-selection/what-are-employers-looking-for-when-reviewing-college-students-resumes', desc: 'Problem solving, teamwork, communication, initiative' },
+      { name: 'NACE — Career Readiness competencies', href: 'https://www.naceweb.org/career-readiness/competencies/career-readiness-defined/', desc: 'Shared language for skills employers and campuses use' },
+      { name: 'NACE — Skills-based hiring trend', href: 'https://www.naceweb.org/job-market/trends-and-predictions/employer-use-of-skills-based-hiring-practices-grows', desc: 'Why proving skills beats GPA-only screening' },
+      { name: 'NACE — Job Outlook 2026 Spring Update', href: 'https://naceweb.org/research/reports/2026/job-outlook/spring-update', desc: 'Hiring timing, experiential learning, skills focus' },
+    ],
+  },
+  {
+    label: 'University career centers',
+    items: [
+      { name: 'CU Boulder Career Services', href: 'https://www.colorado.edu/career/', desc: 'Advising, events, and employer connections' },
+      { name: 'UCLA — LinkedIn Alumni tool', href: 'https://career.ucla.edu/blog/2024/08/08/how-to-use-linkedins-alumni-tool-for-networking/', desc: 'Filter alumni by company, major, location' },
+      { name: 'Dartmouth — LinkedIn guide', href: 'https://careerdesign.dartmouth.edu/resources/linkedin-resource-guide/', desc: 'Alumni search + outreach message templates' },
+      { name: 'UConn — Using LinkedIn', href: 'https://career.uconn.edu/using-linkedin/', desc: 'Profile, alumni tab, and student job search' },
+      { name: 'WashU — Informational interviews', href: 'https://careers.washu.edu/connect-with-alumni-for-an-informational-interview/', desc: 'How to ask for advice without asking for a job' },
+      { name: 'Bucknell — LinkedIn networking', href: 'https://careercenter.bucknell.edu/blog/2025/01/13/how-to-network-on-linkedin-like-a-pro/', desc: 'Student-friendly networking habits' },
+    ],
+  },
+  {
+    label: 'Employer university programs',
+    items: [
+      { name: 'Google Students', href: 'https://careers.google.com/students/', desc: 'Official student/internship recruiting hub' },
+      { name: 'Microsoft University', href: 'https://careers.microsoft.com/v2/global/en/universityrecruiting', desc: 'University recruiting programs & roles' },
+      { name: 'Amazon University Recruiting', href: 'https://www.amazon.jobs/en/teams/university-recruiting', desc: 'Intern and new-grad paths' },
+      { name: 'Meta Students', href: 'https://www.metacareers.com/students', desc: 'Student opportunities' },
+      { name: 'Apple Students', href: 'https://www.apple.com/careers/us/students.html', desc: 'Student career programs' },
+      { name: 'Deloitte Students', href: 'https://www2.deloitte.com/us/en/pages/careers/articles/join-deloitte-as-a-student.html', desc: 'Campus and internship recruiting' },
+      { name: 'JPMorgan Chase Students', href: 'https://careers.jpmorgan.com/us/en/students', desc: 'Student programs & applications' },
+      { name: 'Goldman Sachs Students', href: 'https://www.goldmansachs.com/careers/students', desc: 'Student career opportunities' },
+    ],
+  },
+  {
     label: 'Job boards & platforms',
     items: [
       { name: 'Handshake', href: 'https://joinhandshake.com/', desc: 'Campus recruiting and internship listings' },
       { name: 'LinkedIn Jobs', href: 'https://www.linkedin.com/jobs/', desc: 'Roles, Easy Apply, and alumni networking' },
       { name: 'Indeed', href: 'https://www.indeed.com/', desc: 'Broad internship and entry-level search' },
-      { name: 'Wellfound', href: 'https://wellfound.com/', desc: 'Startup internships and early-career roles' },
       { name: 'USAJOBS Pathways', href: 'https://www.usajobs.gov/Help/working-in-government/unique-hiring-paths/students/', desc: 'Federal student and recent-grad paths' },
     ],
   },
   {
     label: 'Resume & interview prep',
     items: [
-      { name: 'CU Career Services', href: 'https://www.colorado.edu/career/', desc: 'Campus advising, events, and employer connections' },
       { name: 'Teal Resume Builder', href: 'https://www.tealhq.com/tools/resume-builder', desc: 'Resume drafts and job tracking helpers' },
       { name: 'Big Interview', href: 'https://biginterview.com/', desc: 'Structured interview practice' },
-    ],
-  },
-  {
-    label: 'Learn & community',
-    items: [
-      { name: 'Levels.fyi Internships', href: 'https://www.levels.fyi/internships/', desc: 'Compensation and internship benchmarks' },
-      { name: 'r/careerguidance', href: 'https://www.reddit.com/r/careerguidance/', desc: 'Peer advice on search strategy and offers' },
       { name: 'LinkedIn Learning', href: 'https://www.linkedin.com/learning/', desc: 'Skill courses often free via campus access' },
     ],
   },
