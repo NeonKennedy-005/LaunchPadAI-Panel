@@ -142,7 +142,7 @@ export function ScopeRealismWidget({ state, openModal }) {
           className="btn"
           title="Open Scope Realism in the main chat (history lives there)"
           onClick={() => handoffToChat('Scope Realism',
-            `Run a brutal feasibility check on my goal: "${state.target || 'my current training goal'}". Be specific about what's at risk.`)}
+            `Run a brutal feasibility check on my goal: "${state.target || 'my current internship search goal'}". Be specific about what's at risk.`)}
         >
           <Icon name="message" size={13}/>Open in chat
         </button>
@@ -158,43 +158,43 @@ export function ScopeRealismWidget({ state, openModal }) {
 const REVIEW_TEMPLATES = [
   {
     severity: 8,
-    major: 'The program states a goal ("get bigger and stronger") before defining what success looks like. You never specify the measurable target — which lifts, how much, by when — so there is no way to tell if the plan is working or when to change it.',
+    major: 'The search plan states a goal ("land an internship") before defining what success looks like. You never specify the measurable target — which role family, how many tailored apps/week, by when — so there is no way to tell if the plan is working or when to change it.',
     minor: [
-      'Weekly volume is described as "high" without a set count per muscle group.',
-      'Progression is listed as "add weight when you can" with no concrete rule (reps in reserve? double progression?).',
-      'Legs get one day while chest gets two, with no rationale for the imbalance.',
-      'No deload is scheduled across a 12-week block — fatigue will accumulate unmanaged.',
+      'Weekly volume is described as "a lot of applications" without a concrete count or quality bar.',
+      'No rule for when to pause spray-and-pray and rewrite materials instead.',
+      'Networking is mentioned once with no outreach cadence or tracking.',
+      'No Friday review is scheduled — response rate will stay invisible.',
     ],
     suggestions: [
-      'Add one sentence naming the target: e.g. "bench 100kg for 5, add 5cm on arms in 12 weeks."',
-      'Pick an explicit progression rule and write it down.',
-      'Schedule a deload every 5–6 weeks and rebalance leg volume.',
+      'Add one sentence naming the target: e.g. "6 tailored analytics apps/week through April 15."',
+      'Define what "quality application" means (resume match + short note).',
+      'Add a weekly pipeline review with callback rate.',
     ],
   },
   {
     severity: 7,
-    major: 'You claim this split is "optimal for hypertrophy." That word is doing too much work. The layout is also compatible with several worse outcomes (junk volume, under-recovery, skipped legs). Without a way to check whether volume actually drives growth for you, "optimal" is untestable.',
+    major: 'You claim this approach is "optimal for getting interviews." That word is doing too much work. The plan is also compatible with worse outcomes (generic resumes, ignored follow-ups, burnout). Without a way to check whether callbacks improve, "optimal" is untestable.',
     minor: [
-      'The split is justified by "that\'s what most lifters do" rather than by your schedule and recovery.',
+      'The channel mix is justified by "everyone uses LinkedIn" rather than by your major and fair calendar.',
       'No statement of what would make you change the plan.',
-      'A program with no logged numbers is a red flag — you can\'t audit it later.',
+      'A search with no tracked numbers is a red flag — you cannot audit it later.',
     ],
     suggestions: [
       'Replace "optimal" with a specific target the plan either hits or misses.',
-      'List 1–2 signals (stalled lifts, poor sleep) that would trigger a change.',
+      'List 1–2 signals (0 callbacks after 15 apps, missed apply blocks) that trigger a change.',
     ],
   },
   {
     severity: 9,
-    major: 'This reads like a wish list, not a plan. There is no number. There is no timeframe. The strongest claim is that you want to "tone up and feel better" — which is the lowest possible bar. If you actually care about the result, lead with the measurable goal, not the vibe.',
+    major: 'This reads like a wish list, not a plan. There is no number. There is no timeframe. The strongest claim is that you want to "find something good" — which is the lowest possible bar. If you actually care about the result, lead with the measurable goal, not the vibe.',
     minor: [
-      'The word "consistent" appears three times in three sentences. Show it with a logged history instead.',
-      '"Functional training" is jargon-without-definition; say what you\'ll actually do.',
-      'No mention of nutrition, despite it driving most of the outcome you want.',
+      'The word "networking" appears without a single outreach message drafted.',
+      '"Dream company" is undefined; name 10 real targets.',
+      'No mention of resume quality, despite it driving most first-round outcomes.',
     ],
     suggestions: [
-      'Lead sentence: "In 12 weeks I will <specific, measurable result>."',
-      'Cut "I want to get in shape" entirely. Replace it with a lift, a weight, and a date.',
+      'Lead sentence: "By <date> I will <specific, measurable result>."',
+      'Cut "I want a good internship" entirely. Replace it with role lane, volume, and a date.',
     ],
   },
 ];

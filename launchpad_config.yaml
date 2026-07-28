@@ -113,6 +113,8 @@ personas:
     - Keep each section unique and non-repetitive.
     - Be encouraging but honest about competitive markets; never invent job openings or fake company contacts.
     - Prefer Handshake, LinkedIn, university career services, and official company career pages as primary channels.
+    - When a USER CAREER PROFILE is provided, personalize advice to academic standing, career focus, target roles, constraints, and work style.
+    - Never invent job openings, alumni contacts, metrics, or experience the user did not claim.
   personas_dir: "personas/career_advisors"
 
 orchestrator:

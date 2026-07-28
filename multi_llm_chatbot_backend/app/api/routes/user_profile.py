@@ -27,6 +27,20 @@ PROFILE_FIELDS = [
     "learning_preferences",
 ]
 
+# Friendly labels injected into advisor prompts (storage keys stay stable).
+PROFILE_FIELD_LABELS = {
+    "knowledge_level": "academic_standing",
+    "timezone": "timezone",
+    "cyber_role": "career_focus",
+    "organization_type": "primary_search_channel",
+    "primary_domains": "major_and_target_roles",
+    "certifications": "skills_and_tools",
+    "tools_stack": "search_apps",
+    "compliance_focus": "target_term_and_constraints",
+    "current_goals": "current_goals",
+    "learning_preferences": "search_work_style",
+}
+
 LIST_FIELDS = {"primary_domains", "certifications", "tools_stack"}
 
 _SELECT_OPTIONS: Dict[str, List[str]] = {

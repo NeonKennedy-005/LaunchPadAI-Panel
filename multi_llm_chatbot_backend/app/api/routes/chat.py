@@ -16,7 +16,11 @@ from app.core.bootstrap import chat_orchestrator
 from app.core.database import get_database
 from app.core.session_manager import get_session_manager
 from app.models.user import User
-from app.api.routes.user_profile import PROFILE_FIELDS, enrich_profile_from_user
+from app.api.routes.user_profile import (
+    PROFILE_FIELDS,
+    PROFILE_FIELD_LABELS,
+    enrich_profile_from_user,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -36,9 +40,13 @@ async def _attach_user_profile_context(session, user: User) -> None:
             if val:
                 if isinstance(val, list):
                     val = ", ".join(str(v) for v in val)
-                parts.append(f"{key}: {val}")
+                label = PROFILE_FIELD_LABELS.get(key, key)
+                parts.append(f"{label}: {val}")
         if parts:
-            session.user_profile_context = "USER SECURITY PROFILE: " + "; ".join(parts)
+            session.user_profile_context = (
+                "USER CAREER PROFILE (personalize advice; never invent facts): "
+                + "; ".join(parts)
+            )
     except Exception as prof_err:
         logger.warning(f"Could not load user profile: {prof_err}")
 

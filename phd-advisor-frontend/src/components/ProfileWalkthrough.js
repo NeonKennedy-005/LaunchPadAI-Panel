@@ -17,14 +17,15 @@ const buildSteps = (config) => {
       fields: [
         {
           key: 'knowledge_level',
-          label: 'Fitness level',
+          label: 'Academic standing',
           type: 'select',
           options: knowledgeLevels.length
             ? knowledgeLevels
             : [
-                { value: 'beginner', label: 'Beginner' },
-                { value: 'intermediate', label: 'Intermediate' },
-                { value: 'advanced', label: 'Advanced' },
+                { value: 'sophomore', label: 'Sophomore (2nd year)' },
+                { value: 'junior', label: 'Junior (3rd year — internships)' },
+                { value: 'senior', label: 'Senior (4th year — FT / entry-level)' },
+                { value: 'grad', label: 'Graduate / recent grad' },
               ],
         },
         {
@@ -47,7 +48,7 @@ const buildSteps = (config) => {
     {
       title: 'Targets & tools',
       fields: [
-        { key: 'primary_domains', label: 'Target industries / roles (comma-separated)', type: 'text', placeholder: 'e.g. business analytics, marketing, finance, consulting' },
+        { key: 'primary_domains', label: 'Major + target industries / roles (comma-separated)', type: 'text', placeholder: 'e.g. Business Analytics; marketing analytics, finance internship, consulting' },
         { key: 'certifications', label: 'Skills & tools to highlight (comma-separated)', type: 'text', placeholder: 'e.g. Excel, SQL, Python, Canva, Tableau' },
         { key: 'tools_stack', label: 'Apps you use for the search (comma-separated)', type: 'text', placeholder: 'e.g. Handshake, LinkedIn, Notion, Google Sheets' },
       ],
@@ -55,7 +56,7 @@ const buildSteps = (config) => {
     {
       title: 'Goals & preferences',
       fields: [
-        { key: 'compliance_focus', label: 'Constraints (location, visa, unpaid OK?)', type: 'text', placeholder: 'e.g. Denver/remote, paid only, summer 2027' },
+        { key: 'compliance_focus', label: 'Target term + constraints', type: 'text', placeholder: 'e.g. Summer 2027; Denver/remote; paid only; 6 hrs/week for applications' },
         { key: 'current_goals', label: 'Current goals', type: 'textarea', placeholder: 'Land a summer internship, improve resume, prep for interviews...' },
         { key: 'learning_preferences', label: 'How you like to work the search', type: 'text', placeholder: 'Daily apply blocks, weekend deep work, career-fair focused...' },
       ],

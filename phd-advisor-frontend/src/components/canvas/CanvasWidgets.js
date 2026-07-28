@@ -837,7 +837,7 @@ export function HabitsWidget({ state, setState, openModal }) {
           );
         })}
         {habits.length === 0 && (
-          <EmptyState icon="flame" title="No habits yet" hint="Track daily training habits. Hit protein target, 8k steps, 10 min mobility."/>
+          <EmptyState icon="flame" title="No habits yet" hint="Track daily search habits. Apply block, one outreach message, 10 min interview practice."/>
         )}
       </div>
       <button className="add-tiny" onClick={add}>+ New habit</button>
@@ -1439,23 +1439,20 @@ export function DocumenterWidget({ state, setState }) {
   );
 }
 
-// ===== Training Roadmap — standard milestones with status + notes =====
-// Captures the training journey: assessment, base building, technique, program
-// design, nutrition, progression, peak, and maintenance. Each milestone has a
-// status (open/in-progress/completed) and an inline note.
+// ===== Search Roadmap — semester internship milestones with status + notes =====
 const PHD_MILESTONES = [
-  { id: 'courses', label: 'Baseline assessment & goal setting', hint: 'Record current lifts, measurements, and a clear goal.' },
-  { id: 'prelim', label: 'Movement screen', hint: 'Check mobility and any injury history before loading.' },
-  { id: 'lit-review', label: 'Learn the fundamentals', hint: 'Progressive overload, rep ranges, and form basics.' },
-  { id: 'topic', label: 'Pick a training split', hint: 'Full-body, upper/lower, or PPL — match it to your schedule.' },
-  { id: 'committee', label: 'Set up your gym & equipment', hint: 'Home vs. commercial: trade-offs in equipment and cost.' },
-  { id: 'irb', label: 'Dial in nutrition', hint: 'Set protein and calorie targets for your goal.' },
-  { id: 'data', label: 'Start logging workouts', hint: 'Track every session. Pilot the plan for 2 weeks first.' },
-  { id: 'comps', label: 'First progress check', hint: 'Reassess lifts and measurements at week 4–6.' },
-  { id: 'analysis', label: 'Adjust volume & progression', hint: 'Add sets or load where progress has stalled.' },
-  { id: 'writing', label: 'Run the hypertrophy block', hint: 'One block at a time. Aim for consistent progressive overload.' },
-  { id: 'defense', label: 'Deload & peak', hint: 'Plan a deload every 5–6 weeks. Use the Deload template.' },
-  { id: 'proquest', label: 'Transition to maintenance', hint: 'Lock in gains before starting the next block.' },
+  { id: 'courses', label: 'Clarify goals & academic standing', hint: 'Internship vs FT, target start term, hours/week available.' },
+  { id: 'prelim', label: 'Define target roles & industries', hint: 'Primary lane + 1 backup lane (e.g. analytics + marketing ops).' },
+  { id: 'lit-review', label: 'Audit resume & LinkedIn', hint: 'Quantified bullets, ATS-safe layout, consistent headline.' },
+  { id: 'topic', label: 'Build a company shortlist', hint: '20–40 targets across Handshake, LinkedIn, and career fairs.' },
+  { id: 'committee', label: 'Set weekly apply cadence', hint: 'Protect recurring apply blocks on your calendar.' },
+  { id: 'irb', label: 'Draft STAR story bank', hint: 'Leadership, teamwork, conflict, failure, impact — five stories.' },
+  { id: 'data', label: 'Start tracking applications', hint: 'Wishlist → Applied → Interview → Offer with deadlines.' },
+  { id: 'comps', label: 'First pipeline check', hint: 'Review callback rate after 10–15 tailored apps.' },
+  { id: 'analysis', label: 'Tighten materials from feedback', hint: 'Rewrite weak bullets; mirror JD keywords honestly.' },
+  { id: 'writing', label: 'Interview practice week', hint: 'Mock screens aloud; research each company the night before.' },
+  { id: 'defense', label: 'Offer comparison & negotiation', hint: 'Pay, learning, team, location, return-offer odds.' },
+  { id: 'proquest', label: 'Accept & transition plan', hint: 'Onboarding notes, housing/logistics, and thank-you outreach.' },
 ];
 
 export function PhdJourneyWidget({ state, setState }) {
