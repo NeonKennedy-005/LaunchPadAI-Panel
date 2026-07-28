@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 from app.core.env_loader import load_application_env
+from app.core.secrets import normalize_secret
 
 load_application_env()
 
@@ -32,7 +33,7 @@ def _load_shared_env_var(name: str) -> str:
         for line in shared.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line.startswith(prefix):
-                return line.split("=", 1)[1].strip()
+                return normalize_secret(line.split("=", 1)[1])
     return ""
 
 
@@ -73,7 +74,7 @@ def _vllm_api_key() -> str:
 
 
 def _openai_api_key() -> str:
-    return (
+    return normalize_secret(
         settings.llm.openai.api_key
         or os.getenv("OPENAI_API_KEY", "")
         or _load_shared_env_var("OPENAI_API_KEY")

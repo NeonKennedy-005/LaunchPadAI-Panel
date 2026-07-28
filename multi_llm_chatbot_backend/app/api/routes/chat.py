@@ -14,6 +14,7 @@ from app.api.utils import get_or_create_session_for_request_async, load_chat_ses
 from app.core.auth import get_current_active_user
 from app.core.bootstrap import chat_orchestrator
 from app.core.database import get_database
+from app.core.secrets import client_safe_error_message
 from app.core.session_manager import get_session_manager
 from app.models.user import User
 from app.api.routes.user_profile import (
@@ -215,10 +216,11 @@ async def chat_stream(
                 except Exception as e:
                     logger.exception(f"chat-stream _run failed for {pid}: {e}")
                     failed_persona = chat_orchestrator.get_persona(pid)
+                    safe = client_safe_error_message(e)
                     await done_queue.put({
                         "persona_id": pid,
                         "persona_name": failed_persona.name if failed_persona else pid,
-                        "response": f"I ran into a technical issue. Please try again. ({e!s})",
+                        "response": f"I ran into a technical issue. Please try again. ({safe})",
                         "used_documents": False,
                         "document_chunks_used": 0,
                     })
@@ -251,7 +253,7 @@ async def chat_stream(
             logger.error(traceback.format_exc())
             yield ChatStreamLine(
                 type="error",
-                data={"detail": str(exc)},
+                data={"detail": client_safe_error_message(exc)},
             ).to_ndjson()
 
     return StreamingResponse(

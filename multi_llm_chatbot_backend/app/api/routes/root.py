@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 from app.config import get_settings
+from app.core.secrets import normalize_secret
 from app.version import __version__
 
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -14,10 +16,17 @@ router = APIRouter()
 # leave users staring at this JSON banner instead of the app.
 @router.get("/api/health")
 def root():
-    title = get_settings().app.title
+    settings = get_settings()
+    title = settings.app.title
+    openai_key_configured = bool(
+        normalize_secret(settings.llm.openai.api_key)
+        or normalize_secret(os.getenv("OPENAI_API_KEY", ""))
+    )
     return {
         "message": f"{title} Backend is up and running",
         "version": __version__,
+        "llm_provider": settings.llm.provider,
+        "openai_api_key_configured": openai_key_configured,
         "features": [
             "Configurable Personas",
             "Improved Session Management",
@@ -27,4 +36,3 @@ def root():
             "Provider Switching"
         ]
     }
-

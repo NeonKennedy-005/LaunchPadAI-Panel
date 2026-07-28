@@ -6,10 +6,11 @@ import json
 import logging
 from typing import Any, Callable, Dict, List, Optional
 
-from openai import AsyncOpenAI, APIConnectionError, APIStatusError
+from openai import AsyncOpenAI, APIConnectionError, APIStatusError, AuthenticationError
 
 from app.llm.llm_client import LLMClient, ToolCallInfo, ToolCallResult
 from app.core.context_manager import get_context_manager
+from app.core.secrets import client_safe_error_message, normalize_secret
 
 logger = logging.getLogger(__name__)
 
@@ -27,12 +28,18 @@ class OpenAIFallbackClient(LLMClient):
         model: str = "gpt-5.4",
         reasoning_effort: Optional[str] = None,
     ):
+        api_key = normalize_secret(api_key)
         if not api_key:
             raise ValueError("OpenAI API key not set. Provide OPENAI_API_KEY or llm.openai.api_key.")
         self.model = model
         self.reasoning_effort = reasoning_effort
         self.client = AsyncOpenAI(api_key=api_key, timeout=120.0)
         self.context_manager = get_context_manager()
+
+    @staticmethod
+    def _auth_failure(exc: AuthenticationError) -> RuntimeError:
+        logger.error("OpenAI authentication failed (invalid or missing API key)")
+        return RuntimeError(client_safe_error_message(exc))
 
     _ALLOWED_ROLES = {"system", "assistant", "user", "function", "tool", "developer"}
 
@@ -100,11 +107,13 @@ class OpenAIFallbackClient(LLMClient):
             if not text:
                 raise ValueError("OpenAI returned empty content")
             return self._clean_response(text)
+        except AuthenticationError as exc:
+            raise self._auth_failure(exc) from None
         except (APIConnectionError, APIStatusError) as exc:
-            logger.error("OpenAI API error: %s", exc)
+            logger.error("OpenAI API error: %s", client_safe_error_message(exc))
             raise
         except Exception as exc:
-            logger.error("OpenAI generate failed: %s", exc)
+            logger.error("OpenAI generate failed: %s", client_safe_error_message(exc))
             raise
 
     _MAX_TOOL_ROUNDS = 5
@@ -168,9 +177,11 @@ class OpenAIFallbackClient(LLMClient):
                     })
 
             raise ValueError("OpenAI tool-calling loop exhausted max rounds")
+        except AuthenticationError as exc:
+            raise self._auth_failure(exc) from None
         except (APIConnectionError, APIStatusError) as exc:
-            logger.error("OpenAI tool API error: %s", exc)
+            logger.error("OpenAI tool API error: %s", client_safe_error_message(exc))
             raise
         except Exception as exc:
-            logger.error("OpenAI generate_with_tools failed: %s", exc)
+            logger.error("OpenAI generate_with_tools failed: %s", client_safe_error_message(exc))
             raise
