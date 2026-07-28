@@ -124,16 +124,16 @@ const INSIGHT_CATEGORIES = [
 ];
 const CATEGORY_TINT = {
   progress: 'rgba(16, 185, 129, 0.12)',
-  theory: 'rgba(99, 102, 241, 0.12)',
+  theory: 'rgba(15, 118, 110, 0.12)',
   literature: 'rgba(245, 158, 11, 0.12)',
-  action: 'rgba(59, 130, 246, 0.12)',
+  action: 'rgba(13, 148, 136, 0.12)',
   risk: 'rgba(220, 38, 38, 0.12)',
 };
 const CATEGORY_FG = {
   progress: '#10B981',
-  theory: '#818CF8',
+  theory: '#0F766E',
   literature: '#F59E0B',
-  action: '#3B82F6',
+  action: '#0D9488',
   risk: '#DC2626',
 };
 const confidenceTier = (c) => c >= 75 ? 'high' : c >= 60 ? 'med' : 'low';

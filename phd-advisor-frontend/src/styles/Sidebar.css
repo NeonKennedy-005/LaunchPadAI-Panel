@@ -361,14 +361,14 @@
   flex-shrink: 0;
   border: none;
   border-radius: 8px;
-  background: #2663EB;
+  background: var(--accent-primary, #0F766E);
   color: #fff;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .new-chat-icon-btn:hover {
-  background: #1d4fc4;
+  background: var(--accent-secondary, #047857);
   transform: translateY(-1px);
 }
 
@@ -806,7 +806,7 @@
   margin-top: 14px;
   margin-bottom: 8px;
   box-shadow:
-    0 0 32px -10px rgba(99, 102, 241, 0.45),
+    0 0 32px -10px rgba(15, 118, 110, 0.45),
     0 4px 14px -4px rgba(89, 87, 232, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition:

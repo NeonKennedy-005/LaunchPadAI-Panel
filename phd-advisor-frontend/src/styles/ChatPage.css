@@ -16,21 +16,27 @@
 .guest-mode-banner {
   flex-shrink: 0;
   padding: 8px 16px;
-  background: #ccfbf1;
-  color: #115e59;
+  background: var(--accent-soft, #ccfbf1);
+  color: var(--text-accent, #115e59);
   font-size: 0.875rem;
   text-align: center;
-  border-bottom: 1px solid #99f6e4;
+  border-bottom: 1px solid var(--accent-muted, #99f6e4);
 }
 
 .guest-mode-banner button {
   background: none;
   border: none;
-  color: #0f766e;
+  color: var(--accent-primary, #0f766e);
   font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
   padding: 0;
+}
+
+[data-theme="dark"] .guest-mode-banner {
+  background: var(--accent-soft);
+  color: var(--text-accent);
+  border-bottom-color: var(--border-primary);
 }
 
 /* Floating Header */
@@ -76,7 +82,7 @@
   background: var(--accent-primary);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3);
 }
 
 .header-brand {
@@ -489,7 +495,7 @@
   border-radius: 20px;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
   text-align: center;
   max-width: 400px;
 }

@@ -28,26 +28,25 @@
   .canvas-main-area, .canvas-main-area.sidebar-collapsed { margin-left: 0; }
 }
 
-/* PhD Canvas — color palette matched to the rest of the app
-   (Tailwind gray + indigo accent + violet "wedge" accent) */
+/* LaunchPad Canvas — teal/emerald palette matched to app theme */
 .canvas-page-with-sidebar {
-  --canvas-bg: #111827;
-  --canvas-bg-2: #0f172a;
-  --canvas-surface: #1F2937;
-  --canvas-surface-2: #374151;
-  --canvas-surface-3: #4B5563;
-  --canvas-border: #374151;
-  --canvas-border-2: #4B5563;
-  --canvas-text: #F9FAFB;
-  --canvas-text-2: #D1D5DB;
-  --canvas-text-3: #9CA3AF;
-  --canvas-text-4: #6B7280;
-  --canvas-accent: #818CF8;
-  --canvas-accent-dim: #4F46E5;
-  --canvas-accent-glow: rgba(129, 140, 248, 0.20);
-  --canvas-critic: #A78BFA;
-  --canvas-critic-dim: #7C3AED;
-  --canvas-critic-glow: rgba(167, 139, 250, 0.20);
+  --canvas-bg: #0F1C1A;
+  --canvas-bg-2: #0B1614;
+  --canvas-surface: #152422;
+  --canvas-surface-2: #1E3330;
+  --canvas-surface-3: #2A4540;
+  --canvas-border: #2A4540;
+  --canvas-border-2: #3A5C55;
+  --canvas-text: #F0FDFA;
+  --canvas-text-2: #B6D9D2;
+  --canvas-text-3: #7BA89F;
+  --canvas-text-4: #5A857C;
+  --canvas-accent: #2DD4BF;
+  --canvas-accent-dim: #0F766E;
+  --canvas-accent-glow: rgba(45, 212, 191, 0.22);
+  --canvas-critic: #34D399;
+  --canvas-critic-dim: #059669;
+  --canvas-critic-glow: rgba(52, 211, 153, 0.20);
   --canvas-warn: #F59E0B;
   --canvas-danger: #DC2626;
   --canvas-ok: #10B981;
@@ -64,26 +63,26 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Light theme — matches the app's white + Tailwind-gray palette */
+/* Light theme — soft mint surfaces + brand teal accents */
 .canvas-page-with-sidebar[data-canvas-theme="light"] {
-  --canvas-bg: #F9FAFB;        /* gray-50 */
+  --canvas-bg: #F0FDFA;
   --canvas-bg-2: #FFFFFF;
   --canvas-surface: #FFFFFF;
-  --canvas-surface-2: #F3F4F6; /* gray-100 */
-  --canvas-surface-3: #E5E7EB; /* gray-200 */
-  --canvas-border: #E5E7EB;    /* gray-200 */
-  --canvas-border-2: #D1D5DB;  /* gray-300 */
-  --canvas-text: #111827;      /* gray-900 */
-  --canvas-text-2: #374151;    /* gray-700 */
-  --canvas-text-3: #6B7280;    /* gray-500 */
-  --canvas-text-4: #9CA3AF;    /* gray-400 */
-  --canvas-accent: #6366F1;    /* indigo-500 (matches accent-primary) */
-  --canvas-accent-dim: #C7D2FE;
-  --canvas-accent-glow: rgba(99, 102, 241, 0.15);
-  --canvas-critic: #8B5CF6;    /* violet-500 (matches accent-secondary) */
-  --canvas-critic-glow: rgba(139, 92, 246, 0.12);
-  --canvas-shadow: 0 4px 14px rgba(20, 30, 50, 0.08);
-  --canvas-shadow-lg: 0 18px 48px rgba(20, 30, 50, 0.16);
+  --canvas-surface-2: #E6F7F3;
+  --canvas-surface-3: #D1E7E3;
+  --canvas-border: #D1E7E3;
+  --canvas-border-2: #A7D4CC;
+  --canvas-text: #0F172A;
+  --canvas-text-2: #134E4A;
+  --canvas-text-3: #475569;
+  --canvas-text-4: #64748B;
+  --canvas-accent: #0F766E;
+  --canvas-accent-dim: #CCFBF1;
+  --canvas-accent-glow: rgba(15, 118, 110, 0.14);
+  --canvas-critic: #047857;
+  --canvas-critic-glow: rgba(4, 120, 87, 0.12);
+  --canvas-shadow: 0 4px 14px rgba(15, 118, 110, 0.08);
+  --canvas-shadow-lg: 0 18px 48px rgba(15, 118, 110, 0.14);
 }
 
 .canvas-page-with-sidebar *, .canvas-modal-backdrop *, .toast-stack * { box-sizing: border-box; }
@@ -461,7 +460,7 @@
   padding: 10px 14px;
   margin-bottom: 14px;
   background: var(--canvas-accent-glow);
-  border: 1px solid rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(15, 118, 110, 0.18);
   border-radius: 8px;
   flex-wrap: wrap;
 }
@@ -859,7 +858,7 @@
   animation: canvas-view-in 180ms var(--canvas-ease);
 }
 .canvas-page-with-sidebar[data-canvas-theme="light"] .insight-detail {
-  background: rgba(99, 102, 241, 0.04);
+  background: rgba(15, 118, 110, 0.04);
 }
 .canvas-page-with-sidebar .insight-detail-head {
   font-size: 10.5px;
@@ -1007,7 +1006,7 @@
   border-color: rgba(15, 15, 15, 0.08);
 }
 .canvas-page-with-sidebar .widget.critic { border-color: rgba(167, 139, 250, 0.18); }
-.canvas-page-with-sidebar[data-canvas-theme="light"] .widget.critic { border-color: rgba(139, 92, 246, 0.18); }
+.canvas-page-with-sidebar[data-canvas-theme="light"] .widget.critic { border-color: rgba(4, 120, 87, 0.18); }
 .canvas-page-with-sidebar .widget.critic:hover { border-color: var(--canvas-critic); }
 
 /* Preserve 3-S / 2-M / 1-L per row at every desktop width.
@@ -1223,22 +1222,22 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .select {
   animation: canvas-fade-in .15s ease;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  --canvas-bg: #111827;
-  --canvas-bg-2: #0f172a;
-  --canvas-surface: #1F2937;
-  --canvas-surface-2: #374151;
-  --canvas-surface-3: #4B5563;
-  --canvas-border: #374151;
-  --canvas-border-2: #4B5563;
-  --canvas-text: #F9FAFB;
-  --canvas-text-2: #D1D5DB;
-  --canvas-text-3: #9CA3AF;
-  --canvas-text-4: #6B7280;
-  --canvas-accent: #818CF8;
-  --canvas-accent-dim: #4F46E5;
-  --canvas-accent-glow: rgba(129, 140, 248, 0.20);
-  --canvas-critic: #A78BFA;
-  --canvas-critic-glow: rgba(167, 139, 250, 0.20);
+  --canvas-bg: #0F1C1A;
+  --canvas-bg-2: #0B1614;
+  --canvas-surface: #152422;
+  --canvas-surface-2: #1E3330;
+  --canvas-surface-3: #2A4540;
+  --canvas-border: #2A4540;
+  --canvas-border-2: #3A5C55;
+  --canvas-text: #F0FDFA;
+  --canvas-text-2: #B6D9D2;
+  --canvas-text-3: #7BA89F;
+  --canvas-text-4: #5A857C;
+  --canvas-accent: #2DD4BF;
+  --canvas-accent-dim: #0F766E;
+  --canvas-accent-glow: rgba(45, 212, 191, 0.22);
+  --canvas-critic: #34D399;
+  --canvas-critic-glow: rgba(52, 211, 153, 0.20);
   --canvas-warn: #F59E0B;
   --canvas-danger: #DC2626;
   --canvas-ok: #10B981;
@@ -1247,24 +1246,24 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .select {
   color: var(--canvas-text);
 }
 body[data-canvas-theme="light"] .canvas-modal-backdrop {
-  background: rgba(17, 24, 39, 0.35);
-  --canvas-bg: #F9FAFB;
+  background: rgba(15, 28, 26, 0.35);
+  --canvas-bg: #F0FDFA;
   --canvas-bg-2: #FFFFFF;
   --canvas-surface: #FFFFFF;
-  --canvas-surface-2: #F3F4F6;
-  --canvas-surface-3: #E5E7EB;
-  --canvas-border: #E5E7EB;
-  --canvas-border-2: #D1D5DB;
-  --canvas-text: #111827;
-  --canvas-text-2: #374151;
-  --canvas-text-3: #6B7280;
-  --canvas-text-4: #9CA3AF;
-  --canvas-accent: #6366F1;
-  --canvas-accent-dim: #C7D2FE;
-  --canvas-accent-glow: rgba(99, 102, 241, 0.15);
-  --canvas-critic: #8B5CF6;
-  --canvas-critic-glow: rgba(139, 92, 246, 0.12);
-  --canvas-shadow-lg: 0 18px 48px rgba(20, 30, 50, 0.16);
+  --canvas-surface-2: #E6F7F3;
+  --canvas-surface-3: #D1E7E3;
+  --canvas-border: #D1E7E3;
+  --canvas-border-2: #A7D4CC;
+  --canvas-text: #0F172A;
+  --canvas-text-2: #134E4A;
+  --canvas-text-3: #475569;
+  --canvas-text-4: #64748B;
+  --canvas-accent: #0F766E;
+  --canvas-accent-dim: #CCFBF1;
+  --canvas-accent-glow: rgba(15, 118, 110, 0.14);
+  --canvas-critic: #047857;
+  --canvas-critic-glow: rgba(4, 120, 87, 0.12);
+  --canvas-shadow-lg: 0 18px 48px rgba(15, 118, 110, 0.14);
 }
 @keyframes canvas-fade-in { from { opacity: 0 } to { opacity: 1 } }
 
@@ -2145,8 +2144,8 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
   border-radius: 6px;
   margin-bottom: 4px;
 }
-.canvas-sidebar-menu .csm-project.active { background: rgba(99, 102, 241, 0.06); }
-.dark .canvas-sidebar-menu .csm-project.active { background: rgba(129, 140, 248, 0.10); }
+.canvas-sidebar-menu .csm-project.active { background: rgba(15, 118, 110, 0.08); }
+.dark .canvas-sidebar-menu .csm-project.active { background: rgba(45, 212, 191, 0.12); }
 .canvas-sidebar-menu .csm-project-head {
   display: flex;
   align-items: center;
@@ -2165,7 +2164,7 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
 .canvas-sidebar-menu .csm-project-head:hover { background: var(--bg-secondary, #f3f4f6); }
 .dark .canvas-sidebar-menu .csm-project-head { color: var(--text-primary-dark, #f9fafb); }
 .dark .canvas-sidebar-menu .csm-project-head:hover { background: var(--bg-secondary-dark, #374151); }
-.canvas-sidebar-menu .csm-project.active .csm-project-name { color: var(--accent-primary, #6366F1); font-weight: 600; }
+.canvas-sidebar-menu .csm-project.active .csm-project-name { color: var(--accent-primary, #0F766E); font-weight: 600; }
 .canvas-sidebar-menu .csm-project-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .canvas-sidebar-menu .csm-versions {
   display: inline-flex;
@@ -2207,8 +2206,8 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
 }
 .dark .canvas-sidebar-menu .csm-row { color: var(--text-secondary-dark, #9ca3af); }
 .dark .canvas-sidebar-menu .csm-row:hover { background: var(--bg-secondary-dark, #374151); color: var(--text-primary-dark, #f9fafb); }
-.canvas-sidebar-menu .csm-row.critic { color: #8B5CF6; }
-.dark .canvas-sidebar-menu .csm-row.critic { color: #A78BFA; }
+.canvas-sidebar-menu .csm-row.critic { color: #047857; }
+.dark .canvas-sidebar-menu .csm-row.critic { color: #34D399; }
 .canvas-sidebar-menu .csm-row-bullet {
   width: 4px;
   height: 4px;
@@ -2596,7 +2595,7 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
   padding: 4px 14px;
   color: var(--canvas-text-2);
   margin-left: 0;
-  background: rgba(99, 102, 241, 0.04);
+  background: rgba(15, 118, 110, 0.04);
   border-radius: 0 4px 4px 0;
 }
 .canvas-page-with-sidebar .rich-rendered code {
@@ -2983,7 +2982,7 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
 /* Notion-style callout box for AI suggestions */
 .canvas-page-with-sidebar .notion-callout {
   margin-top: 12px;
-  background: rgba(99, 102, 241, 0.06);
+  background: rgba(15, 118, 110, 0.06);
   border-radius: 4px;
   padding: 14px 16px;
   display: flex;
@@ -2993,7 +2992,7 @@ body[data-canvas-theme="light"] .canvas-modal-backdrop .critic-meter .bar { back
   color: var(--canvas-text);
 }
 .canvas-page-with-sidebar[data-canvas-theme="light"] .notion-callout {
-  background: rgba(99, 102, 241, 0.07);
+  background: rgba(15, 118, 110, 0.07);
 }
 .canvas-page-with-sidebar .notion-callout > svg {
   color: var(--canvas-accent);
@@ -3438,7 +3437,7 @@ body[data-canvas-theme="light"] .toast-stack .toast {
   box-shadow: 0 18px 48px rgba(20, 30, 50, 0.16);
 }
 .toast-stack .toast.success { border-left: 3px solid #10B981; }
-.toast-stack .toast.critic { border-left: 3px solid #A78BFA; }
+.toast-stack .toast.critic { border-left: 3px solid #34D399; }
 .toast-stack .toast.danger { border-left: 3px solid #DC2626; }
 @keyframes canvas-toast-in { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
 

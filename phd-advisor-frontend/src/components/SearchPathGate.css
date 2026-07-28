@@ -60,17 +60,17 @@
 }
 
 .search-path-option:hover {
-  border-color: #0f766e;
+  border-color: var(--accent-primary, #0f766e);
   transform: translateY(-1px);
 }
 
 .search-path-option.active {
-  border-color: #0f766e;
-  background: #ccfbf1;
+  border-color: var(--accent-primary, #0f766e);
+  background: var(--accent-soft, #ccfbf1);
 }
 
 .search-path-option-icon {
-  color: #0f766e;
+  color: var(--accent-primary, #0f766e);
 }
 
 .search-path-option-title {
@@ -100,7 +100,7 @@
   border: none;
   border-radius: 12px;
   padding: 12px 16px;
-  background: #0f766e;
+  background: var(--accent-primary, #0f766e);
   color: #fff;
   font-weight: 600;
   cursor: pointer;

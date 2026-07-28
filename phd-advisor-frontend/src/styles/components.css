@@ -1,36 +1,44 @@
-/* CSS Custom Properties for Theming */
+/* CSS Custom Properties for Theming
+   LaunchPad green: calm teal brand (#0F766E) with soft mint surfaces */
 :root[data-theme="light"] {
   /* Background Colors */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F9FAFB;
-  --bg-tertiary: #F3F4F6;
-  --bg-gradient: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 50%, #F3E8FF 100%);
+  --bg-secondary: #F0FDFA;
+  --bg-tertiary: #E6F7F3;
+  --bg-gradient: linear-gradient(135deg, #ECFDF5 0%, #FFFFFF 48%, #F0FDFA 100%);
   
   /* Text Colors */
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --text-tertiary: #9CA3AF;
-  --text-accent: #374151;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #64748B;
+  --text-accent: #134E4A;
   
   /* Border Colors */
-  --border-primary: #E5E7EB;
-  --border-secondary: #D1D5DB;
-  --border-tertiary: #F3F4F6;
+  --border-primary: #D1E7E3;
+  --border-secondary: #A7D4CC;
+  --border-tertiary: #E6F7F3;
   
-  /* Accent Colors */
-  --accent-primary: #6366F1;
-  --accent-secondary: #8B5CF6;
-  --accent-gradient: linear-gradient(135deg, #6366F1, #8B5CF6);
+  /* Accent Colors — brand teal + deeper emerald companion */
+  --accent-primary: #0F766E;
+  --accent-secondary: #047857;
+  --accent-gradient: linear-gradient(135deg, #0F766E, #059669);
+  --accent-soft: #CCFBF1;
+  --accent-muted: #99F6E4;
   
   /* Shadow Colors */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 1px 3px rgba(15, 118, 110, 0.08);
+  --shadow-md: 0 10px 15px -3px rgba(15, 118, 110, 0.10);
+  --shadow-lg: 0 20px 25px -5px rgba(15, 118, 110, 0.12);
+  --shadow-xl: 0 25px 50px -12px rgba(15, 23, 42, 0.22);
   
   /* Feature Colors */
-  --feature-bg: #EFF6FF;
-  --feature-icon-color: #6366F1;
+  --feature-bg: #F0FDFA;
+  --feature-icon-color: #0F766E;
+  
+  /* Success / status */
+  --success: #059669;
+  --success-bg: #ECFDF5;
+  --success-border: #A7F3D0;
   
   /* Error Colors */
   --error-bg: #FEF2F2;
@@ -39,48 +47,55 @@
   
   /* Input Colors */
   --input-bg: #FFFFFF;
-  --input-border: #D1D5DB;
-  --input-focus: #6366F1;
-  --input-focus-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  --input-border: #B6D9D2;
+  --input-focus: #0F766E;
+  --input-focus-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
 
   /* App header (floating bar) */
-  --header-bg: #EBF5FF;
-  --header-border: rgba(59, 130, 246, 0.2);
-  --header-shadow: 0 4px 20px rgba(37, 99, 235, 0.1);
+  --header-bg: #F0FDFA;
+  --header-border: rgba(15, 118, 110, 0.18);
+  --header-shadow: 0 4px 20px rgba(15, 118, 110, 0.10);
 }
 
 :root[data-theme="dark"] {
-  /* Background Colors */
-  --bg-primary: #1F2937;
-  --bg-secondary: #111827;
-  --bg-tertiary: #374151;
-  --bg-gradient: linear-gradient(135deg, #1F2937 0%, #111827 50%, #374151 100%);
+  /* Background Colors — soft green-tinted dark, not harsh black */
+  --bg-primary: #152422;
+  --bg-secondary: #0F1C1A;
+  --bg-tertiary: #1E3330;
+  --bg-gradient: linear-gradient(135deg, #0F1C1A 0%, #152422 50%, #1A2E2B 100%);
   
   /* Text Colors */
-  --text-primary: #F9FAFB;
-  --text-secondary: #D1D5DB;
-  --text-tertiary: #9CA3AF;
-  --text-accent: #E5E7EB;
+  --text-primary: #F0FDFA;
+  --text-secondary: #B6D9D2;
+  --text-tertiary: #7BA89F;
+  --text-accent: #CCFBF1;
   
   /* Border Colors */
-  --border-primary: #374151;
-  --border-secondary: #4B5563;
-  --border-tertiary: #6B7280;
+  --border-primary: #2A4540;
+  --border-secondary: #3A5C55;
+  --border-tertiary: #4A6E66;
   
-  /* Accent Colors */
-  --accent-primary: #818CF8;
-  --accent-secondary: #A78BFA;
-  --accent-gradient: linear-gradient(135deg, #818CF8, #A78BFA);
+  /* Accent Colors — lighter teal for contrast on dark */
+  --accent-primary: #2DD4BF;
+  --accent-secondary: #34D399;
+  --accent-gradient: linear-gradient(135deg, #14B8A6, #10B981);
+  --accent-soft: rgba(45, 212, 191, 0.14);
+  --accent-muted: rgba(45, 212, 191, 0.28);
   
   /* Shadow Colors */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
   
   /* Feature Colors */
-  --feature-bg: #374151;
-  --feature-icon-color: #818CF8;
+  --feature-bg: #1E3330;
+  --feature-icon-color: #5EEAD4;
+  
+  /* Success / status */
+  --success: #34D399;
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --success-border: rgba(52, 211, 153, 0.35);
   
   /* Error Colors */
   --error-bg: #7F1D1D;
@@ -88,14 +103,14 @@
   --error-text: #FCA5A5;
   
   /* Input Colors */
-  --input-bg: #374151;
-  --input-border: #4B5563;
-  --input-focus: #818CF8;
-  --input-focus-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+  --input-bg: #1E3330;
+  --input-border: #3A5C55;
+  --input-focus: #2DD4BF;
+  --input-focus-shadow: 0 0 0 3px rgba(45, 212, 191, 0.22);
 
   /* App header (floating bar) */
-  --header-bg: rgba(23, 37, 64, 0.97);
-  --header-border: rgba(96, 165, 250, 0.18);
+  --header-bg: rgba(15, 28, 26, 0.97);
+  --header-border: rgba(45, 212, 191, 0.18);
   --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
@@ -308,12 +323,12 @@
 .cta-button-secondary {
   background: transparent;
   color: var(--text-primary, #0f172a);
-  border: 2px solid #0f766e;
+  border: 2px solid var(--accent-primary, #0f766e);
   box-shadow: none;
 }
 
 .cta-button-secondary:hover {
-  background: #ccfbf1;
+  background: var(--accent-soft, #ccfbf1);
 }
 
 .cta-button:hover {

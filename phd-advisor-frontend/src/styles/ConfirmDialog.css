@@ -107,13 +107,13 @@
 }
 
 .confirm-btn-primary {
-  background: var(--accent-primary, #2663eb);
+  background: var(--accent-primary, #0F766E);
   color: #ffffff;
 }
 
 .confirm-btn-primary:hover {
-  background: var(--accent-secondary, #1d4fc4);
-  box-shadow: 0 4px 12px -2px rgba(38, 99, 235, 0.45);
+  background: var(--accent-secondary, #047857);
+  box-shadow: 0 4px 12px -2px rgba(15, 118, 110, 0.35);
 }
 
 .confirm-btn-danger {

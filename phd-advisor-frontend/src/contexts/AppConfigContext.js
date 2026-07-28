@@ -125,19 +125,42 @@ export const AppConfigProvider = ({ children }) => {
     localStorage.setItem('myCustomAvatars', JSON.stringify(next));
   };
 
-  // Inject the primary colour as a CSS custom property on <html> so it is
-  // available everywhere without prop-drilling.
+  // Sync brand primary from config. Light theme uses the config color;
+  // dark theme keeps CSS-defined lighter teals for contrast on green-tinted surfaces.
   useEffect(() => {
-    if (config?.app?.primary_color) {
-      document.documentElement.style.setProperty(
-        '--accent-primary',
-        config.app.primary_color
-      );
-    }
-    // Also update the <title> tag dynamically
     if (config?.app?.title) {
       document.title = config.app.title;
     }
+
+    const applyBrand = () => {
+      if (!config?.app?.primary_color) return;
+      const primary = config.app.primary_color;
+      const root = document.documentElement.style;
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        root.removeProperty('--accent-primary');
+        root.removeProperty('--accent-secondary');
+        root.removeProperty('--accent-gradient');
+        root.removeProperty('--feature-icon-color');
+        root.removeProperty('--input-focus');
+        root.removeProperty('--input-focus-shadow');
+        return;
+      }
+      root.setProperty('--accent-primary', primary);
+      root.setProperty('--feature-icon-color', primary);
+      root.setProperty('--input-focus', primary);
+      root.setProperty('--accent-secondary', '#047857');
+      root.setProperty('--accent-gradient', `linear-gradient(135deg, ${primary}, #059669)`);
+      root.setProperty('--input-focus-shadow', '0 0 0 3px rgba(15, 118, 110, 0.15)');
+    };
+
+    applyBrand();
+    const observer = new MutationObserver(applyBrand);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    return () => observer.disconnect();
   }, [config]);
 
   const getAdvisorColors = buildGetAdvisorColors(advisors);

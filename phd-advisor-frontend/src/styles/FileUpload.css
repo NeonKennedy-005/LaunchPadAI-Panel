@@ -87,25 +87,25 @@
 }
 
 .file-upload-area:hover:not(.uploading) {
-  border-color: #3B82F6;
-  background-color: #EFF6FF;
+  border-color: var(--accent-primary, #0F766E);
+  background-color: var(--accent-soft, #F0FDFA);
   transform: translateY(-1px);
 }
 
 [data-theme="dark"] .file-upload-area:hover:not(.uploading) {
-  border-color: #60A5FA;
-  background-color: #1E3A8A;
+  border-color: var(--accent-primary, #2DD4BF);
+  background-color: var(--feature-bg, #1E3330);
 }
 
 .file-upload-area.drag-active {
-  border-color: #3B82F6;
-  background-color: #EFF6FF;
+  border-color: var(--accent-primary, #0F766E);
+  background-color: var(--accent-soft, #F0FDFA);
   transform: scale(1.02);
 }
 
 [data-theme="dark"] .file-upload-area.drag-active {
-  border-color: #60A5FA;
-  background-color: #1E3A8A;
+  border-color: var(--accent-primary, #2DD4BF);
+  background-color: var(--feature-bg, #1E3330);
 }
 
 .file-upload-area.uploading {
