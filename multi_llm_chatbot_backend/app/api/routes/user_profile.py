@@ -25,6 +25,7 @@ PROFILE_FIELDS = [
     "compliance_focus",
     "current_goals",
     "learning_preferences",
+    "advisor_notes",
 ]
 
 # Friendly labels injected into advisor prompts (storage keys stay stable).
@@ -39,6 +40,7 @@ PROFILE_FIELD_LABELS = {
     "compliance_focus": "target_term_and_constraints",
     "current_goals": "current_goals",
     "learning_preferences": "search_work_style",
+    "advisor_notes": "about_me",
 }
 
 LIST_FIELDS = {"primary_domains", "certifications", "tools_stack"}
@@ -100,7 +102,6 @@ def _profile_response(doc: Dict[str, Any], user: User) -> UserProfileResponse:
     return UserProfileResponse(
         user_id=str(enriched.get("user_id", user.id)),
         **fields,
-        advisor_notes=enriched.get("advisor_notes"),
         updated_at=enriched.get("updated_at"),
         completion_pct=_calc_completion(enriched),
     )

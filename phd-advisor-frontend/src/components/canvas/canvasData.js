@@ -32,10 +32,10 @@ export const INSIGHTS = [
     icon: 'flask',
     category: 'theory',
     confidence: 71,
-    summary: 'Resume is ATS-readable but light on metrics. Cover notes and LinkedIn About are unfinished. Interview stories need STAR structure.',
+    summary: 'Resume is ATS-readable but light on metrics. About Me and LinkedIn About are unfinished. Interview stories need STAR structure.',
     bullets: [
       'Resume: <strong>2 quantified bullets</strong> · target 5+ with tools + outcomes',
-      'Channels: Handshake + LinkedIn · company portals underused',
+      'LinkedIn: expand About Me into a scannable headline + About · channels underused',
       'Interview bank: <strong>3 STAR stories</strong> drafted · need leadership + conflict',
     ],
     sources: 14,

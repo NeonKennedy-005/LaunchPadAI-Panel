@@ -59,6 +59,12 @@ const buildSteps = (config) => {
         { key: 'compliance_focus', label: 'Target term + constraints', type: 'text', placeholder: 'e.g. Summer 2027; Denver/remote; paid only; 6 hrs/week for applications' },
         { key: 'current_goals', label: 'Current goals', type: 'textarea', placeholder: 'Land a summer internship, improve resume, prep for interviews...' },
         { key: 'learning_preferences', label: 'How you like to work the search', type: 'text', placeholder: 'Daily apply blocks, weekend deep work, career-fair focused...' },
+        {
+          key: 'advisor_notes',
+          label: 'About Me / career narrative',
+          type: 'textarea',
+          placeholder: 'Who you are, what you want employers to know, and any LinkedIn About draft. Advisors can expand this into employer-readable LinkedIn copy.',
+        },
       ],
     },
   ];

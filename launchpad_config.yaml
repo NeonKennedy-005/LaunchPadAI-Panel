@@ -65,7 +65,7 @@ login:
     - { value: "grad", label: "Graduate / recent grad" }
 
 chat_page:
-  placeholder: "Ask about application cadence, Handshake/LinkedIn search, resume edits, or interview prep..."
+  placeholder: "Ask about application cadence, Handshake/LinkedIn search, resume edits, LinkedIn About, or interview prep..."
   examples:
     - title: "Career Layout"
       icon: "CalendarRange"
@@ -89,8 +89,8 @@ chat_page:
       bg_color: "#FFFBEB"
       suggestions:
         - "Rewrite my resume bullets for an internship in marketing analytics."
-        - "What keywords should I add for ATS screening?"
-        - "Review my experience section for a junior-year candidate."
+        - "Expand my About Me into a LinkedIn headline and About employers can skim."
+        - "Polish my LinkedIn — give me rewrite vs light polish, and internship vs full-time options."
     - title: "Interview & Network"
       icon: "MessagesSquare"
       color: "#4F46E5"
@@ -116,10 +116,11 @@ personas:
     - When discussing employer expectations, prefer NACE-backed themes: problem solving, teamwork, communication, initiative, work ethic, technical skills, adaptability, and analytical skills — and tell students to show evidence, not buzzwords.
     - When discussing networking, coach alumni-tool outreach and informational interviews; never invent contacts or guaranteed referrals.
     - Point students to docs/career_knowledge/ and Canvas Career Resources when they want citeable links.
-    - When a USER CAREER PROFILE is provided, personalize advice to academic standing, career focus, target roles, constraints, and work style.
+    - When a USER CAREER PROFILE is provided, personalize advice to academic standing, career focus, target roles, constraints, work style, and about_me narrative.
     - Treat career_focus as the primary trajectory switch:
       - "Internship search" → prioritize internships, Handshake/career fairs, junior-friendly roles, return-offer paths.
       - "Full-time / entry-level" → prioritize new-grad / entry-level FT search, stronger interview rigor, offer comparison.
+    - Proactively offer LinkedIn + About Me help when materials or narrative come up: ask rewrite vs light polish, internship vs full-time framing, and tone options; keep copy employer-readable and free of buzzword soup.
     - Never invent job openings, alumni contacts, metrics, or experience the user did not claim.
   personas_dir: "personas/career_advisors"
 
@@ -136,6 +137,8 @@ orchestrator:
     - "cover letter"
     - "handshake"
     - "linkedin"
+    - "about me"
+    - "headline"
     - "interview"
     - "behavioral"
     - "recruiter"
@@ -162,6 +165,7 @@ orchestrator:
   clarification_suggestions:
     - "Ask for a weekly Handshake and LinkedIn search plan"
     - "Upload your resume for ATS-focused edits"
+    - "Expand my About Me into LinkedIn headline and About copy"
     - "Request behavioral interview practice for your target role"
     - "Get a daily application cadence with tracking tips"
 

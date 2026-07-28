@@ -123,7 +123,7 @@ const ClearDataModal = ({ authToken, onClose, onDataCleared }) => {
           <div>
             <div style={{ fontWeight: 600, fontSize: 14 }}>Profile Information</div>
             <div style={{ fontSize: 12, color: isDark ? '#9ca3af' : '#6b7280', marginTop: 2 }}>
-              Fitness level, goals, training focus, equipment, etc. Resets "Tell us about yourself."
+              Academic standing, goals, About Me, search focus, etc. Resets "Tell us about yourself."
             </div>
           </div>
         </div>

@@ -1443,7 +1443,7 @@ export function DocumenterWidget({ state, setState }) {
 const PHD_MILESTONES = [
   { id: 'courses', label: 'Clarify goals & academic standing', hint: 'Internship vs FT, target start term, hours/week available.' },
   { id: 'prelim', label: 'Define target roles & industries', hint: 'Primary lane + 1 backup lane (e.g. analytics + marketing ops).' },
-  { id: 'lit-review', label: 'Audit resume & LinkedIn', hint: 'Quantified bullets, ATS-safe layout, consistent headline.' },
+  { id: 'lit-review', label: 'Audit resume & LinkedIn', hint: 'Quantified bullets; expand About Me into a scannable LinkedIn headline + About.' },
   { id: 'topic', label: 'Build a company shortlist', hint: '20–40 targets across Handshake, LinkedIn, and career fairs.' },
   { id: 'committee', label: 'Set weekly apply cadence', hint: 'Protect recurring apply blocks on your calendar.' },
   { id: 'irb', label: 'Draft STAR story bank', hint: 'Leadership, teamwork, conflict, failure, impact — five stories.' },

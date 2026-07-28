@@ -103,6 +103,7 @@ Open Canvas from the sidebar. Layout and widgets auto-save in your browser.`,
 ## Useful workflows
 - **Search plan:** Internship Search Strategist + Application Scheduler
 - **Materials polish:** Resume Optimizer + Internship Search Strategist
+- **LinkedIn & About Me:** Add your narrative in profile onboarding, then ask Resume Optimizer or Career Path Mentor for rewrite vs polish options (internship or full-time framing)
 - **Interview week:** Interview Coach + Career Path Mentor
 - **Stuck after rejections:** Ask multiple advisors to compare targeting, resume, and networking
 - **Citeable research:** Upload files from \`docs/career_knowledge/\` (employers, recruiting, networking) so advisors can ground answers in NACE and university sources

@@ -85,8 +85,8 @@
       "icon": "FilePenLine",
       "prompts": [
         "Rewrite my resume bullets for an internship in marketing analytics.",
-        "What keywords should I add for ATS screening?",
-        "Review my experience section for a junior-year candidate."
+        "Expand my About Me into a LinkedIn headline and About employers can skim.",
+        "Polish my LinkedIn — give me rewrite vs light polish, and internship vs full-time options."
       ]
     },
     {
@@ -99,7 +99,7 @@
       ]
     }
   ],
-  "chatInputPlaceholder": "Ask about application cadence, Handshake/LinkedIn search, resume edits, or interview prep...",
+  "chatInputPlaceholder": "Ask about application cadence, Handshake/LinkedIn search, resume edits, LinkedIn About, or interview prep...",
   "sharedBasePrompt": "base_prompt: |\n  **Formatting (Compact Markdown v1):**\n  - Use GitHub-Flavored Markdown.\n  - Output exactly three sections in this order:\n    - `### Thought` -- one sentence that reflects on the user's situation from YOUR perspective.\n    - `### What to do` -- exactly 3 bullets, one line each, with practical actions.\n    - `### Next step` -- one imperative sentence telling the user what to do now.\n  - Use `###` for headings and `-` for bullets.\n  - Insert one blank line between sections.\n  - Keep each section unique and non-repetitive.",
   "includedPersonaIds": [
     "internship_search_strategist",
