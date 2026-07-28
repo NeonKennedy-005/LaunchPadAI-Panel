@@ -115,6 +115,26 @@ function App() {
     setCurrentView('chat');
   };
 
+  const handleGuestStart = async () => {
+    if (authBootstrapping) {
+      return;
+    }
+    try {
+      const response = await fetch(`${getApiBaseUrl()}/auth/guest`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        handleAuthSuccess(data.user, data.access_token);
+      } else {
+        setCurrentView('auth');
+      }
+    } catch {
+      setCurrentView('auth');
+    }
+  };
+
   const handleSignOut = () => {
     clearAuthState();
   };
@@ -133,6 +153,7 @@ function App() {
               onNavigateToHome={navigateToHome}
               onNavigateToChat={sessionReady ? navigateToChat : navigateToAuth}
               onNavigateToCanvas={sessionReady ? navigateToCanvas : navigateToAuth}
+              onTryAsGuest={sessionReady ? navigateToChat : handleGuestStart}
               isAuthenticated={sessionReady}
             />
           )}

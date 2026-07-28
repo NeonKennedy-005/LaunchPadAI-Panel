@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useAppConfig } from '../contexts/AppConfigContext';
-import { persistAuth } from '../utils/authStorage';
+import { persistAuth, getApiBaseUrl } from '../utils/authStorage';
 import CopyrightNotice from './CopyrightNotice';
 import '../styles/Login.css';
 
@@ -14,6 +14,7 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
     password: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
@@ -22,7 +23,6 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -33,32 +33,55 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
+
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleGuestContinue = async () => {
+    setIsGuestLoading(true);
+    setErrors({});
+    try {
+      const response = await fetch(`${getApiBaseUrl()}/auth/guest`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        persistAuth(data.user, data.access_token);
+        onNavigateToHome?.(data.user, data.access_token);
+      } else {
+        setErrors({ submit: data.detail || 'Could not start a guest session.' });
+      }
+    } catch (error) {
+      console.error('Guest login error:', error);
+      setErrors({ submit: 'Could not start a guest session. Please try again.' });
+    } finally {
+      setIsGuestLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsLoading(true);
-    
+
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+      const response = await fetch(`${getApiBaseUrl()}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +100,7 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
       } else {
         setErrors({ submit: data.detail || 'Login failed. Please try again.' });
       }
-      
+
     } catch (error) {
       console.error('Login error:', error);
       setErrors({ submit: 'Login failed. Please try again.' });
@@ -86,11 +109,12 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
     }
   };
 
+  const busy = isLoading || isGuestLoading;
+
   return (
     <div className="login-page">
       <div className="login-content">
         <div className="login-container">
-        {/* Header */}
         <div className="login-header">
           <div className="logo-container">
             <LogoIcon className="logo-icon" />
@@ -101,11 +125,23 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
           </p>
         </div>
 
-        {/* Main Login Form */}
         <div className="login-form-container">
+          <button
+            type="button"
+            className={`guest-continue-btn ${isGuestLoading ? 'loading' : ''}`}
+            onClick={handleGuestContinue}
+            disabled={busy}
+          >
+            {isGuestLoading ? 'Starting guest mode…' : 'Try without an account'}
+          </button>
+          <p className="guest-continue-hint">
+            Play with the advisors first. Create an account later if you want to save your chats.
+          </p>
+          <div className="login-divider" aria-hidden="true">
+            <span>or sign in</span>
+          </div>
+
           <form onSubmit={handleSubmit} className="login-form">
-            
-            {/* Email Field */}
             <div className="form-group">
               <label htmlFor="email" className="form-label">
                 Email Address
@@ -120,7 +156,7 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
                   onChange={handleInputChange}
                   className={`form-input ${errors.email ? 'error' : ''}`}
                   placeholder="Enter your email"
-                  disabled={isLoading}
+                  disabled={busy}
                 />
               </div>
               {errors.email && (
@@ -128,7 +164,6 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
               )}
             </div>
 
-            {/* Password Field */}
             <div className="form-group">
               <label htmlFor="password" className="form-label">
                 Password
@@ -143,13 +178,13 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
                   onChange={handleInputChange}
                   className={`form-input ${errors.password ? 'error' : ''}`}
                   placeholder="Enter your password"
-                  disabled={isLoading}
+                  disabled={busy}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="password-toggle"
-                  disabled={isLoading}
+                  disabled={busy}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -159,25 +194,22 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
               )}
             </div>
 
-            {/* Forgot Password */}
             <div className="form-actions">
               <button type="button" className="forgot-password">
                 Forgot your password?
               </button>
             </div>
 
-            {/* Submit Error */}
             {errors.submit && (
               <div className="submit-error">
                 {errors.submit}
               </div>
             )}
 
-            {/* Submit Button */}
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={`submit-btn ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading}
+              disabled={busy}
             >
               {isLoading ? (
                 <>
@@ -194,14 +226,14 @@ const Login = ({ onNavigateToSignup, onNavigateToHome }) => {
           </form>
         </div>
 
-        {/* Footer */}
         <div className="login-footer">
           <p>
             Don't have an account?{' '}
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="link-btn"
               onClick={onNavigateToSignup}
+              disabled={busy}
             >
               Sign up here
             </button>

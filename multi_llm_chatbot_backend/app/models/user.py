@@ -28,6 +28,8 @@ class UserCreate(BaseModel):
     password: str
     academicStage: Optional[str] = None
     researchArea: Optional[str] = None
+    # Maps to profile.cyber_role — "Internship search" | "Full-time / entry-level" | etc.
+    careerFocus: Optional[str] = None
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -51,6 +53,7 @@ class User(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     last_login: Optional[datetime] = None
     is_active: bool = True
+    is_guest: bool = False
 
 class UserUpdate(BaseModel):
     avatarId: Optional[str] = None
@@ -71,6 +74,7 @@ class UserResponse(BaseModel):
     avatarId: Optional[str] = None
     created_at: datetime
     last_login: Optional[datetime] = None
+    is_guest: bool = False
 
 class ChatSession(BaseModel):
     model_config = ConfigDict(

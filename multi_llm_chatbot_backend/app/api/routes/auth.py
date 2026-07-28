@@ -15,6 +15,8 @@ from app.core.auth import (
 )
 from app.core.database import get_database
 import logging
+import secrets
+import uuid
 
 logger = logging.getLogger(__name__)
 
@@ -98,6 +100,8 @@ async def signup(user_data: UserCreate):
             profile_seed["knowledge_level"] = user_data.academicStage
         if user_data.researchArea:
             profile_seed["timezone"] = user_data.researchArea
+        if user_data.careerFocus:
+            profile_seed["cyber_role"] = user_data.careerFocus
         await db.user_profiles.update_one(
             {"user_id": user.id},
             {"$set": profile_seed},
@@ -171,6 +175,52 @@ async def login(user_credentials: UserLogin):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Login failed"
+        )
+
+
+@router.post("/guest", response_model=Token)
+async def guest_login():
+    """Create a disposable guest session so visitors can try the advisors without signing up."""
+    try:
+        db = get_database()
+        guest_id = uuid.uuid4().hex[:12]
+        email = f"guest-{guest_id}@guest.launchpad.local"
+        user = User(
+            firstName="Guest",
+            lastName="Explorer",
+            email=email,
+            hashed_password=get_password_hash(secrets.token_urlsafe(32)),
+            created_at=datetime.utcnow(),
+            last_login=datetime.utcnow(),
+            is_active=True,
+            is_guest=True,
+        )
+        result = await db.users.insert_one(user.dict(by_alias=True))
+        user.id = result.inserted_id
+        await db.user_profiles.update_one(
+            {"user_id": user.id},
+            {
+                "$set": {
+                    "user_id": user.id,
+                    "updated_at": datetime.utcnow(),
+                }
+            },
+            upsert=True,
+        )
+        access_token = create_access_token(
+            data={"sub": str(user.id), "guest": True},
+            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
+        )
+        return Token(
+            access_token=access_token,
+            token_type="bearer",
+            user=create_user_response(user),
+        )
+    except Exception as e:
+        logger.error(f"Error during guest login: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not start guest session",
         )
 
 @router.get("/me", response_model=UserResponse)

@@ -5,7 +5,7 @@ import AppHeader from '../components/AppHeader';
 import CopyrightNotice from '../components/CopyrightNotice';
 import { useAppConfig } from '../contexts/AppConfigContext';
 
-const HomePage = ({ onNavigateToChat, isAuthenticated, onNavigateToHome, onNavigateToCanvas }) => {
+const HomePage = ({ onNavigateToChat, onTryAsGuest, isAuthenticated, onNavigateToHome, onNavigateToCanvas }) => {
   const { config, advisors, resolveIcon } = useAppConfig();
 
   return (
@@ -27,14 +27,25 @@ const HomePage = ({ onNavigateToChat, isAuthenticated, onNavigateToHome, onNavig
           <p className="hero-subtitle">
             {config.homepage.description}
           </p>
-          <button
-            onClick={onNavigateToChat}
-            className="cta-button"
-          >
-            <MessageCircle className="cta-icon" />
-            <span>{isAuthenticated ? 'Continue Conversation' : 'Start Conversation'}</span>
-            <ArrowRight className="cta-arrow" />
-          </button>
+          <div className="cta-group">
+            <button
+              onClick={onNavigateToChat}
+              className="cta-button"
+            >
+              <MessageCircle className="cta-icon" />
+              <span>{isAuthenticated ? 'Continue Conversation' : 'Start Conversation'}</span>
+              <ArrowRight className="cta-arrow" />
+            </button>
+            {!isAuthenticated && (
+              <button
+                type="button"
+                onClick={onTryAsGuest}
+                className="cta-button cta-button-secondary"
+              >
+                <span>Try without an account</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Advisors Grid */}

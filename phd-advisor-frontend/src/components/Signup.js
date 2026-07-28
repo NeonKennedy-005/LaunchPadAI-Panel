@@ -16,7 +16,8 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
     password: '',
     confirmPassword: '',
     academicStage: '',
-    researchArea: ''
+    researchArea: '',
+    careerFocus: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -86,6 +87,10 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
     if (!formData.academicStage) {
       newErrors.academicStage = 'Please select your academic standing';
     }
+
+    if (!formData.careerFocus) {
+      newErrors.careerFocus = 'Please choose internship or full-time';
+    }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -110,7 +115,8 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
           email: formData.email,
           password: formData.password,
           academicStage: formData.academicStage,
-          researchArea: formData.researchArea
+          researchArea: formData.researchArea,
+          careerFocus: formData.careerFocus,
         }),
       });
 
@@ -282,10 +288,10 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
               </div>
             </div>
 
-            {/* Fitness level */}
+            {/* Academic standing */}
             <div className="form-group">
               <label htmlFor="academicStage" className="form-label">
-                Fitness level
+                Academic standing
               </label>
               <div className="input-container">
                 <Shield className="input-icon" />
@@ -306,6 +312,35 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
               </div>
               {errors.academicStage && (
                 <span className="error-message">{errors.academicStage}</span>
+              )}
+            </div>
+
+            {/* Internship vs full-time */}
+            <div className="form-group">
+              <span className="form-label">What are you aiming for?</span>
+              <div className="career-focus-options">
+                {[
+                  { value: 'Internship search', label: 'Internship' },
+                  { value: 'Full-time / entry-level', label: 'Full-time job' },
+                ].map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`career-focus-option ${formData.careerFocus === opt.value ? 'active' : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name="careerFocus"
+                      value={opt.value}
+                      checked={formData.careerFocus === opt.value}
+                      onChange={handleInputChange}
+                      disabled={isLoading}
+                    />
+                    {opt.label}
+                  </label>
+                ))}
+              </div>
+              {errors.careerFocus && (
+                <span className="error-message">{errors.careerFocus}</span>
               )}
             </div>
 
@@ -381,6 +416,28 @@ const Signup = ({ onNavigateToLogin, onNavigateToHome }) => {
               onClick={onNavigateToLogin}
             >
               Sign in here
+            </button>
+            {' · '}
+            <button
+              type="button"
+              className="link-btn"
+              onClick={async () => {
+                try {
+                  const response = await fetch(`${process.env.REACT_APP_API_URL || ''}/auth/guest`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                  });
+                  const data = await response.json();
+                  if (response.ok) {
+                    persistAuth(data.user, data.access_token);
+                    onNavigateToHome?.(data.user, data.access_token);
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
+              }}
+            >
+              Try without an account
             </button>
           </p>
         </div>

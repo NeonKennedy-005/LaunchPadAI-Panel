@@ -15,6 +15,7 @@ import '../styles/EnhancedChatInput.css';
 import AdvisorCarousel from '../components/AdvisorCarousel';
 import OnboardingChat from '../components/OnboardingChat';
 import ProfileWalkthrough from '../components/ProfileWalkthrough';
+import SearchPathGate, { needsSearchPath } from '../components/SearchPathGate';
 import ClearDataModal from '../components/ClearDataModal';
 import AccountModal from '../components/AccountModal';
 
@@ -65,20 +66,33 @@ const ChatPage = ({ user, authToken, onNavigateToHome, onNavigateToCanvas, onSig
   const [showClearData, setShowClearData] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+  const [showSearchPathGate, setShowSearchPathGate] = useState(false);
 
   const loadProfile = async () => {
     try {
       const resp = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me/profile`, {
         headers: { Authorization: `Bearer ${authToken}` },
       });
-      if (resp.ok) setUserProfile(await resp.json());
+      if (resp.ok) {
+        const profile = await resp.json();
+        setUserProfile(profile);
+        setShowSearchPathGate(needsSearchPath(profile));
+      } else {
+        setShowSearchPathGate(true);
+      }
     } catch (e) {
-      /* ignore */
+      setShowSearchPathGate(true);
+    } finally {
+      setProfileLoaded(true);
     }
   };
 
   useEffect(() => {
-    if (authToken) loadProfile();
+    if (authToken) {
+      setProfileLoaded(false);
+      loadProfile();
+    }
   }, [authToken]);
 
   useEffect(() => {
@@ -872,6 +886,7 @@ const handleNewChat = async (sessionId = null) => {
   }, [messages]);
 
   const handleInputSubmit = async (inputMessage) => {
+  if (showSearchPathGate) return;
   if (replyingTo) {
     // This is a reply to a specific message
     await handleReplyToAdvisor(inputMessage, replyingTo);
@@ -951,6 +966,11 @@ const handleNewChat = async (sessionId = null) => {
               <HelpCircle size={18} />
             </button>
           </AppHeader>
+          {user?.is_guest && (
+            <div className="guest-mode-banner" role="status">
+              You&apos;re exploring as a guest. Sign out from the menu when you&apos;re ready to create an account and keep longer-term progress.
+            </div>
+          )}
 
           {/* Main Content */}
           <div className="chat-content">
@@ -1097,11 +1117,13 @@ const handleNewChat = async (sessionId = null) => {
               onSendMessage={handleInputSubmit}
               onFileUploaded={handleFileUploaded}
               uploadedDocuments={uploadedDocuments}
-              isLoading={isLoading}
+              isLoading={isLoading || showSearchPathGate}
               currentChatSessionId={currentSessionId}
               authToken={authToken}
               placeholder={
-                replyingTo 
+                showSearchPathGate
+                  ? 'Choose internship or full-time above to start…'
+                  : replyingTo 
                   ? `Reply to ${replyingTo.advisorName}...`
                   : chatPlaceholder
               }
@@ -1115,6 +1137,16 @@ const handleNewChat = async (sessionId = null) => {
           authToken={authToken}
           existingProfile={userProfile}
           onClose={() => { setShowProfileForm(false); loadProfile(); }}
+        />
+      )}
+
+      {profileLoaded && showSearchPathGate && (
+        <SearchPathGate
+          authToken={authToken}
+          onComplete={(profile) => {
+            setUserProfile(profile);
+            setShowSearchPathGate(false);
+          }}
         />
       )}
 

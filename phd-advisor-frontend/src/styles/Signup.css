@@ -100,6 +100,34 @@
   margin-bottom: 8px;
 }
 
+.career-focus-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.career-focus-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 2px solid var(--border-primary, #e2e8f0);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--bg-secondary, #f8fafc);
+}
+
+.career-focus-option.active {
+  border-color: #0f766e;
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.career-focus-option input {
+  accent-color: #0f766e;
+}
+
 .optional {
   font-weight: 400;
   color: var(--text-tertiary);

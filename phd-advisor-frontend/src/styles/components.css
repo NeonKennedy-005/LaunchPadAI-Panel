@@ -241,6 +241,25 @@
   text-decoration: none;
 }
 
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button-secondary {
+  background: transparent;
+  color: var(--text-primary, #0f172a);
+  border: 2px solid #0f766e;
+  box-shadow: none;
+}
+
+.cta-button-secondary:hover {
+  background: #ccfbf1;
+}
+
 .cta-button:hover {
   transform: scale(1.05);
 }

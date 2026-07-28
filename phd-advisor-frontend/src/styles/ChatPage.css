@@ -13,6 +13,26 @@
   transform: translateZ(0);
 }
 
+.guest-mode-banner {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: #ccfbf1;
+  color: #115e59;
+  font-size: 0.875rem;
+  text-align: center;
+  border-bottom: 1px solid #99f6e4;
+}
+
+.guest-mode-banner button {
+  background: none;
+  border: none;
+  color: #0f766e;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
 /* Floating Header */
 .floating-header {
   position: sticky;
