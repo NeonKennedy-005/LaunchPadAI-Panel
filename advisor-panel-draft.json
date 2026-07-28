@@ -1,0 +1,111 @@
+{
+  "authorName": "Kennedy Johnson",
+  "panelName": "Undergraduate Internship Search",
+  "purpose": "Help undergraduate students locate, apply for, and land internships in a competitive market — and pivot to entry-level full-time roles when appropriate.",
+  "advisors": [
+    {
+      "name": "Internship Search Strategist",
+      "role": "Roles, Platforms & Target Lists"
+    },
+    {
+      "name": "Resume Optimizer",
+      "role": "ATS, Bullets & Skills Match"
+    },
+    {
+      "name": "Interview Coach",
+      "role": "Prep, Presence & Company Research"
+    },
+    {
+      "name": "Application Scheduler",
+      "role": "Cadence, Deadlines & Tracking"
+    },
+    {
+      "name": "Career Path Mentor",
+      "role": "Networking, Pivot & Full-Time Transition"
+    }
+  ],
+  "visionApplicationPurpose": "Help undergraduate students locate, apply for, and land internships in a competitive market — and pivot to entry-level full-time roles when appropriate.",
+  "visionTargetAudience": "Undergraduate students, especially juniors (3rd year) seeking internships. Seniors (4th year+) are guided toward internships or full-time entry-level jobs.",
+  "visionKeyOutcomes": "Personalized daily/weekly application schedules; where to apply (Handshake, LinkedIn, company sites); interview tips and likely questions; resume feedback and revision based on experience and skills.",
+  "appTitle": "LaunchPadAI",
+  "appSubtitle": "AI mentor for internships to full-time jobs",
+  "primaryBrandColor": "#0F766E",
+  "logoIcon": "Rocket",
+  "footerText": "© 2026 Kennedy Johnson. All rights reserved.",
+  "headlinePrefix": "Undergraduate Internship Navigation",
+  "headlineHighlight": "AI Undergrad Job Finder",
+  "homepageDescription": "Receive a personalized plan to find and land an internship as a third-year undergrad, or pivot to an entry-level full-time job as a fourth-year student and beyond.",
+  "featuresSectionTitle": "AI Career Toolkit",
+  "featureCards": [
+    {
+      "title": "AI Internship Search",
+      "icon": "Search",
+      "description": "A personalized plan to match multiple internships a day, plus resume review and interview tips to build your career foundation."
+    },
+    {
+      "title": "Resume Optimizer",
+      "icon": "FilePenLine",
+      "description": "Feedback, edits, and tweaks so your resume stands out to ATS systems and recruiting teams."
+    },
+    {
+      "title": "AI Interview Helper",
+      "icon": "MessagesSquare",
+      "description": "Near-perfect answers, company research tips, and guidance on presence and body language for virtual or in-person interviews."
+    }
+  ],
+  "loginPageSubtitle": "Sign in to land your internship and entry-level job today!",
+  "signupPageSubtitle": "Create an account to start the first day of your career!",
+  "userInfoRows": [
+    {
+      "infoBoxLabel": "Academic Standing",
+      "dropdownChoices": "Sophomore (2nd year), Junior (3rd year — internships), Senior (4th year — FT / entry-level), Graduate / recent grad"
+    }
+  ],
+  "examplePromptCards": [
+    {
+      "title": "Career Layout",
+      "icon": "CalendarRange",
+      "prompts": [
+        "How many internships should I apply to each day?",
+        "How do I stand out in an interview?",
+        "Where can I find entry-level jobs that build real skills?"
+      ]
+    },
+    {
+      "title": "Search & Apply",
+      "icon": "Search",
+      "prompts": [
+        "Build a Handshake and LinkedIn search plan for business analytics internships.",
+        "What companies should a Leeds undergrad target this semester?",
+        "How do I track applications without getting overwhelmed?"
+      ]
+    },
+    {
+      "title": "Resume & Materials",
+      "icon": "FilePenLine",
+      "prompts": [
+        "Rewrite my resume bullets for an internship in marketing analytics.",
+        "What keywords should I add for ATS screening?",
+        "Review my experience section for a junior-year candidate."
+      ]
+    },
+    {
+      "title": "Interview & Network",
+      "icon": "MessagesSquare",
+      "prompts": [
+        "Give me 10 behavioral interview questions for a finance internship.",
+        "How should I research a company the night before?",
+        "Draft a LinkedIn outreach message to an alumni in my field."
+      ]
+    }
+  ],
+  "chatInputPlaceholder": "Ask about application cadence, Handshake/LinkedIn search, resume edits, or interview prep...",
+  "sharedBasePrompt": "base_prompt: |\n  **Formatting (Compact Markdown v1):**\n  - Use GitHub-Flavored Markdown.\n  - Output exactly three sections in this order:\n    - `### Thought` -- one sentence that reflects on the user's situation from YOUR perspective.\n    - `### What to do` -- exactly 3 bullets, one line each, with practical actions.\n    - `### Next step` -- one imperative sentence telling the user what to do now.\n  - Use `###` for headings and `-` for bullets.\n  - Insert one blank line between sections.\n  - Keep each section unique and non-repetitive.",
+  "includedPersonaIds": [
+    "internship_search_strategist",
+    "resume_optimizer",
+    "interview_coach",
+    "application_scheduler",
+    "career_path_mentor"
+  ]
+}

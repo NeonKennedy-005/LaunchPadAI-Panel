@@ -1,0 +1,202 @@
+# ============================================================================
+# LaunchPadAI — Application Configuration
+# Generated from advisor-panel-draft (Undergraduate Internship Search) by Kennedy Johnson
+# Modeled on MuscleGrowthAI / CCAI multi-advisor panel pattern
+# ============================================================================
+
+app:
+  title: "LaunchPadAI"
+  subtitle: "AI mentor for internships to full-time jobs"
+  primary_color: "#0F766E"
+  logo_icon: "Rocket"
+  footer_text: "© 2026 Kennedy Johnson. All rights reserved."
+  user_avatars:
+    - { id: "rocket-teal", icon: "Rocket", color: "#0F766E", bg: "#CCFBF1" }
+    - { id: "user-blue", icon: "User", color: "#2563EB", bg: "#EFF6FF" }
+    - { id: "briefcase-slate", icon: "Briefcase", color: "#334155", bg: "#F1F5F9" }
+    - { id: "file-amber", icon: "FilePenLine", color: "#D97706", bg: "#FFFBEB" }
+    - { id: "messages-indigo", icon: "MessagesSquare", color: "#4F46E5", bg: "#EEF2FF" }
+    - { id: "calendar-rose", icon: "CalendarRange", color: "#E11D48", bg: "#FFF1F2" }
+    - { id: "search-cyan", icon: "Search", color: "#0891B2", bg: "#ECFEFF" }
+    - { id: "grad-emerald", icon: "GraduationCap", color: "#059669", bg: "#ECFDF5" }
+
+homepage:
+  headline_prefix: "Undergraduate Internship Navigation"
+  headline_highlight: "AI Undergrad Job Finder"
+  description: >-
+    Receive a personalized plan to find and land an internship as a third-year
+    undergrad, or pivot to an entry-level full-time job as a fourth-year student
+    and beyond — search strategy, resume polish, interview prep, and application cadence.
+  features_title: "AI Career Toolkit"
+  features:
+    - title: "AI Internship Search"
+      description: "A personalized plan to match multiple internships a day, plus resume review and interview tips to build your career foundation."
+      icon: "Search"
+    - title: "Resume Optimizer"
+      description: "Feedback, edits, and tweaks so your resume stands out to ATS systems and recruiting teams."
+      icon: "FilePenLine"
+    - title: "AI Interview Helper"
+      description: "Near-perfect answers, company research tips, and guidance on presence for virtual or in-person interviews."
+      icon: "MessagesSquare"
+
+login:
+  subtitle: "Sign in to land your internship and entry-level job today!"
+  signup_subtitle: "Create an account to start the first day of your career!"
+  knowledge_levels:
+    - { value: "", label: "Select your academic standing" }
+    - { value: "sophomore", label: "Sophomore (2nd year)" }
+    - { value: "junior", label: "Junior (3rd year — internships)" }
+    - { value: "senior", label: "Senior (4th year — FT / entry-level)" }
+    - { value: "grad", label: "Graduate / recent grad" }
+  timezones:
+    - { value: "", label: "Select timezone (optional)" }
+    - { value: "America/New_York", label: "Eastern (US)" }
+    - { value: "America/Chicago", label: "Central (US)" }
+    - { value: "America/Denver", label: "Mountain (US)" }
+    - { value: "America/Los_Angeles", label: "Pacific (US)" }
+    - { value: "America/Anchorage", label: "Alaska (US)" }
+    - { value: "Pacific/Honolulu", label: "Hawaii (US)" }
+    - { value: "UTC", label: "UTC" }
+  academic_stages:
+    - { value: "", label: "Select your academic standing" }
+    - { value: "sophomore", label: "Sophomore (2nd year)" }
+    - { value: "junior", label: "Junior (3rd year — internships)" }
+    - { value: "senior", label: "Senior (4th year — FT / entry-level)" }
+    - { value: "grad", label: "Graduate / recent grad" }
+
+chat_page:
+  placeholder: "Ask about application cadence, Handshake/LinkedIn search, resume edits, or interview prep..."
+  examples:
+    - title: "Career Layout"
+      icon: "CalendarRange"
+      color: "#0F766E"
+      bg_color: "#CCFBF1"
+      suggestions:
+        - "How many internships should I apply to each day?"
+        - "How do I stand out in an interview?"
+        - "Where can I find entry-level jobs that build real skills?"
+    - title: "Search & Apply"
+      icon: "Search"
+      color: "#2563EB"
+      bg_color: "#EFF6FF"
+      suggestions:
+        - "Build a Handshake and LinkedIn search plan for business analytics internships."
+        - "What companies should a Leeds undergrad target this semester?"
+        - "How do I track applications without getting overwhelmed?"
+    - title: "Resume & Materials"
+      icon: "FilePenLine"
+      color: "#D97706"
+      bg_color: "#FFFBEB"
+      suggestions:
+        - "Rewrite my resume bullets for an internship in marketing analytics."
+        - "What keywords should I add for ATS screening?"
+        - "Review my experience section for a junior-year candidate."
+    - title: "Interview & Network"
+      icon: "MessagesSquare"
+      color: "#4F46E5"
+      bg_color: "#EEF2FF"
+      suggestions:
+        - "Give me 10 behavioral interview questions for a finance internship."
+        - "How should I research a company the night before?"
+        - "Draft a LinkedIn outreach message to an alumni in my field."
+
+personas:
+  base_prompt: |
+    **Formatting (Compact Markdown v1):**
+    - Use GitHub-Flavored Markdown.
+    - Output exactly three sections in this order:
+      - `### Thought` — one sentence that reflects on the user's situation from YOUR perspective.
+      - `### What to do` — exactly 3 bullets, one line each, with practical actions.
+      - `### Next step` — one imperative sentence telling the user what to do now.
+    - Use `###` for headings and `-` for bullets.
+    - Insert one blank line between sections.
+    - Keep each section unique and non-repetitive.
+    - Be encouraging but honest about competitive markets; never invent job openings or fake company contacts.
+    - Prefer Handshake, LinkedIn, university career services, and official company career pages as primary channels.
+  personas_dir: "personas/career_advisors"
+
+orchestrator:
+  min_words_without_keywords: 6
+  conversation_history_token_threshold: 4000
+  specific_keywords:
+    - "internship"
+    - "intern"
+    - "job"
+    - "career"
+    - "resume"
+    - "cv"
+    - "cover letter"
+    - "handshake"
+    - "linkedin"
+    - "interview"
+    - "behavioral"
+    - "recruiter"
+    - "ats"
+    - "apply"
+    - "application"
+    - "networking"
+    - "alumni"
+    - "offer"
+    - "full-time"
+    - "entry-level"
+    - "sophomore"
+    - "junior"
+    - "senior"
+    - "leeds"
+    - "undergrad"
+    - "deadline"
+    - "portfolio"
+  clarification_questions:
+    - "What is your academic standing (sophomore, junior, senior) and target start term?"
+    - "Which majors, industries, or role types are you targeting?"
+    - "Are you optimizing for internships, full-time entry-level, or both?"
+    - "How many hours per week can you realistically spend on applications?"
+  clarification_suggestions:
+    - "Ask for a weekly Handshake and LinkedIn search plan"
+    - "Upload your resume for ATS-focused edits"
+    - "Request behavioral interview practice for your target role"
+    - "Get a daily application cadence with tracking tips"
+
+auth:
+  algorithm: "HS256"
+  token_expiry_minutes: 43200
+
+mongodb:
+  database_name: "launchpad_advisor"
+
+llm:
+  provider: "openai"
+  gemini:
+    model: "gemini-2.5-flash"
+  ollama:
+    model: "llama3.2:1b"
+  vllm:
+    api_url: ""
+    api_key: ""
+    api_username: "guest"
+    model_id: ""
+    neon_persona_orchestrator: "vanilla"
+    neon_persona_advisors: "vanilla"
+  openai:
+    # Key comes from the OPENAI_API_KEY env var / HF Space secret (never committed).
+    api_key: ""
+    model: "gpt-5.4-mini"
+    orchestrator_reasoning_effort: "low"
+    persona_reasoning_effort: "none"
+  resilient:
+    race_timeout_seconds: 60
+
+rag:
+  embedding_model: "all-MiniLM-L6-v2"
+  chroma_collection: "launchpad_documents"
+
+tools:
+  current_datetime:
+    enabled: true
+    default_timezone: "America/Denver"
+  nutrition_calculator:
+    enabled: false
+
+voice:
+  stt_endpoint: "https://whisper.neonaiservices.com"
+  tts_endpoint: "https://coqui.neonaiservices.com"

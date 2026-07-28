@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------------------
+# Local-dev wrapper around the single-container HuggingFace Spaces image.
+#
+# Override LAUNCHPAD_HOST_PORT via .env (or shell) if 7860 conflicts; the
+# in-container port is fixed at 7860 to mirror HF Spaces.
+# ---------------------------------------------------------------------------
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: launchpad-panel:dev
+    ports:
+      - "${LAUNCHPAD_HOST_PORT:-7860}:7860"
+    environment:
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-CHANGEME-by-overriding-in-dot-env-file}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      VLLM_API_KEY: ${VLLM_API_KEY:-}
+      VLLM_API_USERNAME: ${VLLM_API_USERNAME:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+      CONFIG_PATH: ${CONFIG_PATH:-/home/user/app/launchpad_config.yaml}
+      # Same-origin in single-container; only relevant for cross-origin dev.
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      # SQLite + ChromaDB persistence both land here. The named volume below
+      # mirrors the HF Storage Bucket mount so user data survives rebuilds.
+      DATA_DIR: /data
+    volumes:
+      - launchpad_data:/data
+
+volumes:
+  launchpad_data:
