@@ -16,6 +16,7 @@ from app.api.routes.auth import (  # noqa: E402
     UpdateProfileRequest,
     change_password,
     delete_account,
+    guest_login,
     update_profile,
 )
 from app.models.user import User  # noqa: E402
@@ -203,6 +204,47 @@ class TestUpdateProfile(unittest.TestCase):
             UpdateProfileRequest(first_name="   ")
 
         self.assertIn("at least one field", str(ctx.exception).lower())
+
+
+# ------------------------------------------------------------------
+# POST /auth/guest
+# ------------------------------------------------------------------
+
+
+@patch("app.api.routes.auth.create_access_token", return_value="guest-token")
+@patch("app.api.routes.auth.get_password_hash", return_value="hashed")
+@patch("app.api.routes.auth.get_database")
+class TestGuestLogin(unittest.TestCase):
+
+    def test_creates_guest_user_with_valid_email(self, mock_get_db, _hash, _token):
+        db = _mock_db()
+        db.users.insert_one = AsyncMock(return_value=MagicMock(inserted_id=FAKE_USER_ID))
+        db.user_profiles = MagicMock()
+        db.user_profiles.update_one = AsyncMock()
+        mock_get_db.return_value = db
+
+        result = asyncio.run(guest_login())
+
+        self.assertEqual(result.access_token, "guest-token")
+        self.assertEqual(result.token_type, "bearer")
+        self.assertTrue(result.user.is_guest)
+        self.assertTrue(result.user.email.endswith("@guests.launchpad.ai"))
+        self.assertFalse(result.user.email.endswith(".local"))
+        db.users.insert_one.assert_called_once()
+        inserted = db.users.insert_one.call_args.args[0]
+        self.assertTrue(inserted.get("is_guest"))
+        self.assertTrue(str(inserted.get("email", "")).endswith("@guests.launchpad.ai"))
+
+    def test_legacy_local_guest_email_is_rejected_by_model(self, *_mocks):
+        """Regression: EmailStr must not accept reserved .local guest addresses."""
+        with self.assertRaises(ValidationError):
+            User(
+                firstName="Guest",
+                lastName="Explorer",
+                email="guest-abc@guest.launchpad.local",
+                hashed_password="x",
+                is_guest=True,
+            )
 
 
 # ------------------------------------------------------------------

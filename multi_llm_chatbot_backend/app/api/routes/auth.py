@@ -184,7 +184,10 @@ async def guest_login():
     try:
         db = get_database()
         guest_id = uuid.uuid4().hex[:12]
-        email = f"guest-{guest_id}@guest.launchpad.local"
+        # Must be a syntactically valid email: EmailStr / email-validator
+        # rejects reserved TLDs like `.local`, which previously made guest
+        # sign-in always 500.
+        email = f"guest-{guest_id}@guests.launchpad.ai"
         user = User(
             firstName="Guest",
             lastName="Explorer",
