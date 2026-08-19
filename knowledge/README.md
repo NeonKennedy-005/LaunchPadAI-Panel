@@ -20,8 +20,9 @@ Educational diagrams (original LaunchPadAI assets — not company logos):
 ## How to use in LaunchPadAI
 
 1. **Canvas → Career Resources** widget already links many of these sources.
-2. **Upload** any of these Markdown files in chat (paperclip) so advisors can RAG against them.
-3. Advisors are prompted to prefer Handshake, LinkedIn, campus career services, and official company university pages — and never invent openings.
+2. **Bundled seed:** On Space/container startup the backend auto-ingests these Markdown files into a shared Chroma knowledge pack (`__launchpad_knowledge_pack__`) so RAG works without per-user upload.
+3. **Optional upload:** You can still attach extra PDFs/Markdown in chat (paperclip) for session-specific context.
+4. Advisors are prompted to prefer Handshake, LinkedIn, campus career services, and official company university pages — and never invent openings.
 
 ## Attribution note
 

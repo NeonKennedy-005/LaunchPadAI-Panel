@@ -175,10 +175,9 @@ async def chat_stream(
                 ).to_ndjson()
                 return
 
-            # Always relevance-rank to the top 3 advisors, scoped to the
-            # user's active-advisor selection (the header dropdown) when one is
-            # provided. The dropdown filters the candidate pool; the LLM
-            # ranking still picks the top 3 from that pool.
+            # Respond with every active advisor (relevance-ordered). The old
+            # hard top-3 cut made "chat with all" return only the first three
+            # alphabetically when ranking fell back.
             if message.active_advisors:
                 candidate_ids = [
                     pid for pid in message.active_advisors
@@ -186,9 +185,12 @@ async def chat_stream(
                 ]
             else:
                 candidate_ids = list(chat_orchestrator.personas.keys())
+            if not candidate_ids:
+                candidate_ids = list(chat_orchestrator.personas.keys())
+
             top_personas = await chat_orchestrator.get_top_personas(
                 session_id=sid,
-                k=3,
+                k=len(candidate_ids),
                 candidate_ids=candidate_ids,
             )
 

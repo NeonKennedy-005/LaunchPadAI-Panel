@@ -3,21 +3,21 @@ import { TourProvider, useTour } from '@reactour/tour';
 import { Hand, GraduationCap, Plus, MessageCircle, Paperclip, BarChart3 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useAppConfig } from '../contexts/AppConfigContext';
-import { TESTING_ONBOARDING } from '../App';
 import '../styles/OnboardingTour.css';
 
 const STORAGE_KEY = 'hasSeenOnboardingTour';
+const TESTING_ONBOARDING = false;
 
 // Fallbacks used when config.onboarding.* fields aren't provided by the backend.
 const DEFAULT_FEATURES = [
-  { Icon: GraduationCap, label: 'Get advice from specialized AI advisors' },
+  { Icon: GraduationCap, label: 'Get advice from specialized AI career advisors' },
   { Icon: MessageCircle, label: 'Save and revisit every conversation' },
   { Icon: Paperclip, label: 'Upload PDFs and documents for context-aware answers' },
-  { Icon: BarChart3, label: 'Track your progress on a structured canvas' },
+  { Icon: BarChart3, label: 'Track your search on a structured career canvas' },
 ];
 const DEFAULT_CANVAS_STEP = {
-  title: 'Progress Canvas',
-  body: 'A dashboard view of your training journey — program progress, nutrition, next steps, all in one place.',
+  title: 'Career Canvas',
+  body: 'A dashboard for your internship or job search — milestones, resources, application trackers, and next steps in one place.',
 };
 
 const buildAdvisorBody = (advisors) => {

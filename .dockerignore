@@ -14,7 +14,5 @@
 **/.idea
 **/.DS_Store
 **/Thumbs.db
-docker-compose.yml
-Dockerfile
-.dockerignore
-*.md
+# Keep knowledge/**/*.md and docs/** available for image COPY
+# (do not blanket-ignore *.md)

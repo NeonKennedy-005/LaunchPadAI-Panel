@@ -1,5 +1,5 @@
 """
-OnboardingAgent — conversational profile gathering for fitness advisors.
+OnboardingAgent — conversational profile gathering for undergraduate career advisors.
 """
 
 import json
@@ -14,28 +14,28 @@ LOG = logging.getLogger(__name__)
 
 # NOTE: field keys are kept stable (knowledge_level, cyber_role, ...) for storage
 # compatibility with the user profile schema; the questions/descriptions below
-# are themed for a fitness / bodybuilding advisor panel.
+# are themed for the LaunchPadAI undergraduate career advisor panel.
 PROFILE_FIELDS: List[tuple] = [
-    ("knowledge_level", "What is your fitness experience level?",
-     "Level such as beginner, intermediate, or advanced"),
+    ("knowledge_level", "What year are you in school (or are you a recent grad)?",
+     "Freshman, sophomore, junior, senior, recent grad, or other"),
     ("timezone", "What time zone are you usually in?",
      "IANA timezone or region such as America/New_York, Europe/London, UTC"),
-    ("cyber_role", "What best describes your training focus right now?",
-     "Focus such as general fitness, bodybuilding/hypertrophy, powerlifting/strength, cutting, or athlete"),
-    ("organization_type", "Where do you usually train?",
-     "Commercial gym, home gym, campus gym, CrossFit box, outdoor/calisthenics, or hybrid"),
-    ("primary_domains", "Which muscle groups or areas do you focus on most?",
-     "Comma-separated areas such as chest, back, legs, arms, core, conditioning"),
-    ("certifications", "What equipment do you have access to?",
-     "List such as dumbbells, barbell, cables, bands, machines, or bodyweight only"),
-    ("tools_stack", "What apps or trackers do you use regularly?",
-     "MyFitnessPal, Strong, Hevy, Apple Health, a spreadsheet, etc."),
-    ("compliance_focus", "Any dietary approach or restrictions we should know about?",
-     "High-protein, vegetarian/vegan, cutting, bulking, allergies, or none"),
+    ("cyber_role", "Are you aiming for an internship, a full-time / entry-level role, or both?",
+     "Internship search, Full-time / entry-level, Both internship and FT, Career exploration"),
+    ("organization_type", "What kind of school or program are you in?",
+     "Large university, liberal arts college, community college, bootcamp, online, or other"),
+    ("primary_domains", "What is your major and which industries or roles are you targeting?",
+     "Comma-separated areas such as Business Analytics; marketing, finance internship, consulting"),
+    ("certifications", "Any clubs, leadership, projects, or credentials worth highlighting?",
+     "Student org officer, research, hackathons, certifications, or none yet"),
+    ("tools_stack", "What tools do you already use for your search?",
+     "Handshake, LinkedIn, Notion, Excel tracker, campus career portal, etc."),
+    ("compliance_focus", "Any constraints we should respect (visa, location, timeline)?",
+     "CPT/OPT, must stay local, summer-only, graduating this year, or none"),
     ("current_goals", "What are you trying to accomplish in the next few months?",
-     "Muscle gain, fat loss, strength PRs, first pull-up, recomposition, etc."),
-    ("learning_preferences", "How do you prefer to train?",
-     "Full-body, upper/lower or bro splits, supersets, progressive overload, etc."),
+     "Land a summer internship, improve resume, prep interviews, convert a return offer, etc."),
+    ("learning_preferences", "How do you prefer advice packaged?",
+     "Short checklists, templates, mock interviews, weekly plans, or deep explainers"),
 ]
 
 
@@ -95,8 +95,8 @@ class OnboardingAgent:
 
         if not missing:
             return {
-                "reply": "Great — your fitness profile is complete. Your coaches will tailor workouts, "
-                         "nutrition, and next steps to your goals, equipment, and experience.",
+                "reply": "Great — your career profile is complete. Your advisors will tailor "
+                         "internship/job search strategy, resume tips, and interview prep to your goals.",
                 "progress": 100,
                 "complete": True,
             }
@@ -118,7 +118,7 @@ class OnboardingAgent:
             )
         field_descriptions = "\n".join(f'- "{k}": {desc}' for k, _q, desc in missing_fields)
         system = (
-            "Extract fitness profile fields from the user's message. "
+            "Extract undergraduate career-profile fields from the user's message. "
             "Return ONLY valid JSON with field names as keys. "
             "For list fields return a JSON array. "
             f"{skip_instruction}\n"
@@ -152,8 +152,9 @@ class OnboardingAgent:
         filled_summary = ", ".join(filled_parts) or "nothing yet"
         next_field_key, next_field_q, _ = missing[0]
         system = (
-            "You are a friendly fitness onboarding assistant. "
-            "You help users build a profile so AI fitness coaches can personalize workouts and nutrition.\n"
+            "You are a friendly undergraduate career onboarding assistant for LaunchPadAI. "
+            "You help students build a profile so AI career advisors can personalize "
+            "internship and job-search guidance.\n"
             "RULES:\n"
             "- Respond in exactly ONE short paragraph (2-3 sentences).\n"
             "- Briefly acknowledge what they said, then ask ONE clear question.\n"
@@ -180,4 +181,4 @@ class OnboardingAgent:
             return reply
         except Exception as e:
             LOG.error(f"Question generation failed: {e}")
-            return missing[0][1] if missing else "Tell me more about your fitness background!"
+            return missing[0][1] if missing else "Tell me more about your career goals!"

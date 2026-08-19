@@ -36,6 +36,13 @@ logging.basicConfig(
 async def lifespan(app: FastAPI):
     # Startup
     await connect_to_mongo()
+    try:
+        from app.core.knowledge_pack import seed_bundled_knowledge_pack
+        seed_bundled_knowledge_pack()
+    except Exception as seed_err:
+        logging.getLogger(__name__).warning(
+            "Knowledge pack seed skipped/failed: %s", seed_err
+        )
     yield
     # Shutdown
     await close_mongo_connection()

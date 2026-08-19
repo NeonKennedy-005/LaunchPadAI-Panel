@@ -435,7 +435,7 @@ const DeliverablesView = ({ allStates }) => {
           <div>
             <h1 className="page-title">Documents</h1>
             <div className="page-sub">
-              Documents hub — program plans, check-ins, nutrition protocols, and progress boards. Drafts auto-save. Versions kept for rollback.
+              Documents hub — search plans, check-ins, resume drafts, and application trackers. Drafts auto-save. Versions kept for rollback.
               {projectList.length > 0 && ` · ${projectList.length} draft${projectList.length === 1 ? '' : 's'} in flight.`}
             </div>
           </div>
@@ -473,7 +473,7 @@ const DeliverablesView = ({ allStates }) => {
         <div className="canvas-presets">
           <div className="canvas-presets-head">
             <div className="canvas-presets-title">{projectList.length > 0 ? 'Or start a new draft' : 'Pick a template'}</div>
-            <div className="canvas-presets-sub">13 templates · program plans, check-ins, posters, résumé, and more.</div>
+            <div className="canvas-presets-sub">13 templates · search plans, check-ins, posters, résumé, and more.</div>
           </div>
           <div className="canvas-presets-grid">
             {TEMPLATES.map(t => (

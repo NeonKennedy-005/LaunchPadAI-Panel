@@ -27,6 +27,11 @@ const ClearDataModal = ({ authToken, onClose, onDataCleared }) => {
       if (resp.ok) {
         const data = await resp.json();
         setResult(data.cleared);
+        if (profile) {
+          try {
+            localStorage.removeItem('launchpadSearchPath');
+          } catch { /* ignore */ }
+        }
         if (onDataCleared) onDataCleared({ profile, chats, canvas });
       } else {
         setResult(['Error clearing data']);
@@ -143,7 +148,7 @@ const ClearDataModal = ({ authToken, onClose, onDataCleared }) => {
           <div>
             <div style={{ fontWeight: 600, fontSize: 14 }}>Canvas</div>
             <div style={{ fontSize: 12, color: isDark ? '#9ca3af' : '#6b7280', marginTop: 2 }}>
-              All saved workout plans, progress notes, and insights.
+              All saved career plans, application trackers, and canvas notes.
             </div>
           </div>
         </div>

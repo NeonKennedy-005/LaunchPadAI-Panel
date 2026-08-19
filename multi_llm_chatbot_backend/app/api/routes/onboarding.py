@@ -102,9 +102,9 @@ async def onboarding_start(
     next_q = _next_missing_question(profile)
     if progress == 0:
         greeting = (
-            f"Hey {current_user.firstName}! I'd like to learn a bit about your security background so "
-            "your advisors can tailor depth and examples. "
-            f"Let's start — {next_q.lower() if next_q else 'tell me about your role and goals!'}"
+            f"Hey {current_user.firstName}! I'd like to learn a bit about your career goals so "
+            "your advisors can tailor internship and job-search guidance. "
+            f"Let's start — {next_q.lower() if next_q else 'tell me about your major and goals!'}"
         )
     else:
         greeting = (

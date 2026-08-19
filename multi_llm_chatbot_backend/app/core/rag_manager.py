@@ -333,6 +333,25 @@ class RAGManager:
                 "error": str(e)
             }
     
+    def _session_search_where(
+        self, session_id: str, extra: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Include the user's session docs plus the bundled knowledge pack."""
+        from app.core.knowledge_pack import KNOWLEDGE_PACK_SESSION_ID
+
+        if session_id == KNOWLEDGE_PACK_SESSION_ID:
+            base: Dict[str, Any] = {"session_id": session_id}
+        else:
+            base = {
+                "$or": [
+                    {"session_id": session_id},
+                    {"session_id": KNOWLEDGE_PACK_SESSION_ID},
+                ]
+            }
+        if not extra:
+            return base
+        return {"$and": [base, extra]}
+
     def search_documents(self, query: str, session_id: str, persona_context: str = "", n_results: int = 5) -> List[Dict[str, Any]]:
         """
         Search for relevant document chunks
@@ -341,11 +360,11 @@ class RAGManager:
             # Enhance query with persona context for better retrieval
             enhanced_query = f"{query} {persona_context}".strip()
             
-            # Search the collection
+            # Search the collection (user uploads + bundled career knowledge pack)
             results = self.collection.query(
                 query_texts=[enhanced_query],
                 n_results=n_results,
-                where={"session_id": session_id}  # Filter by session
+                where=self._session_search_where(session_id),
             )
             
             # Format results
@@ -501,6 +520,25 @@ class EnhancedRAGManager:
         )
         
         logger.info(f"Enhanced RAG Manager initialized with collection: {self.collection.name}")
+
+    def _session_search_where(
+        self, session_id: str, extra: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Include the user's session docs plus the bundled knowledge pack."""
+        from app.core.knowledge_pack import KNOWLEDGE_PACK_SESSION_ID
+
+        if session_id == KNOWLEDGE_PACK_SESSION_ID:
+            base: Dict[str, Any] = {"session_id": session_id}
+        else:
+            base = {
+                "$or": [
+                    {"session_id": session_id},
+                    {"session_id": KNOWLEDGE_PACK_SESSION_ID},
+                ]
+            }
+        if not extra:
+            return base
+        return {"$and": [base, extra]}
     
     def add_document(self, content: str, filename: str, session_id: str, 
                     file_type: str = "unknown") -> Dict[str, Any]:
@@ -593,8 +631,8 @@ class EnhancedRAGManager:
             # Build enhanced query
             enhanced_query = self._build_enhanced_query(query, persona_context, document_references)
             
-            # Base search filters
-            search_filters = {"session_id": session_id}
+            # Base search filters (user session + bundled knowledge pack)
+            search_filters = self._session_search_where(session_id)
             
             # If specific document mentioned, prioritize it
             if document_hint or document_references:
@@ -603,7 +641,10 @@ class EnhancedRAGManager:
                     # First search: prioritize specific document
                     priority_results = self._search_with_filters(
                         enhanced_query, 
-                        {**search_filters, "filename": {"$contains": priority_filename}},
+                        self._session_search_where(
+                            session_id,
+                            {"filename": {"$contains": priority_filename}},
+                        ),
                         n_results=min(3, n_results)
                     )
                     

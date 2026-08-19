@@ -110,3 +110,20 @@
   opacity: 0.55;
   cursor: not-allowed;
 }
+
+.search-path-skip {
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #64748b);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.search-path-skip:hover {
+  color: var(--text-primary, #0f172a);
+  text-decoration: underline;
+}

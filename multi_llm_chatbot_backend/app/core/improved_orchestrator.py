@@ -6,10 +6,6 @@ from app.core.rag_manager import get_rag_manager
 from app.config import get_settings
 from app.llm.llm_client import LLMClient, ToolCallResult
 from app.tools import get_tool_definitions, get_tool_executor
-from app.tools.nutrition_calculator import (
-    compute_protein_advisory_context,
-    format_computed_context_block,
-)
 from app.utils.chat_summary import generate_conversation_context_summary
 
 import json
@@ -92,8 +88,6 @@ class ImprovedChatOrchestrator:
             "Call get_current_datetime when the user asks about today, deadlines, timelines, "
             "schedules, or when accurate date/time context would improve "
             "your guidance — then weave the result into your answer. "
-            "Call calculate_protein_target when the user asks about protein intake and "
-            "provides body weight — use the returned grams, do not guess arithmetic. "
             "If no tool is relevant, respond with a brief text answer. "
             "Format your responses using markdown."
         )
@@ -836,12 +830,6 @@ When analyzing the document context:
                 "Use this background to calibrate technical depth, examples, and priorities."
             )
 
-        computed_nutrition = compute_protein_advisory_context(conversation_messages)
-        if computed_nutrition:
-            system_message += (
-                f"\n\n{format_computed_context_block(computed_nutrition)}"
-            )
-
         enhanced_context.append({
             "role": "system",
             "content": system_message,
@@ -1106,14 +1094,73 @@ When analyzing the document context:
 
             if len(valid_ids) < k:
                 logger.warning(f"LLM returned insufficient or invalid IDs. Got: {valid_ids}")
-                return list(candidate_personas.keys())[:k]
+                ranked = self._rank_personas_by_keywords(
+                    recent_context, list(candidate_personas.keys())
+                )
+                for pid in ranked:
+                    if pid not in valid_ids:
+                        valid_ids.append(pid)
+                    if len(valid_ids) >= k:
+                        break
 
             return valid_ids[:k]
 
         except Exception as e:
             logger.error(f"Error selecting top personas: {e}")
-            if candidate_ids:
-                fallback_ids = [pid for pid in candidate_ids if pid in self.personas]
-                if fallback_ids:
-                    return fallback_ids[:k]
-            return list(self.personas.keys())[:k]
+            pool = (
+                [pid for pid in candidate_ids if pid in self.personas]
+                if candidate_ids
+                else list(self.personas.keys())
+            )
+            session = self.session_manager.get_session(session_id)
+            recent = ""
+            if session:
+                recent = "\n".join(
+                    msg["content"] for msg in session.get_recent_messages(5)
+                )
+            return self._rank_personas_by_keywords(recent, pool)[:k]
+
+    def _rank_personas_by_keywords(
+        self, recent_context: str, candidate_ids: List[str]
+    ) -> List[str]:
+        """Relevance fallback that must never collapse to alphabetical order."""
+        text = (recent_context or "").lower()
+        keyword_map = {
+            "internship_search_strategist": [
+                "internship", "intern", "summer", "fall internship",
+                "co-op", "coop", "handshake", "campus recruiting",
+                "recruiting timeline", "application season",
+            ],
+            "career_path_mentor": [
+                "career path", "major", "industry", "pivot", "explore",
+                "which role", "what should i do", "career exploration",
+                "graduate school", "return offer", "long-term",
+            ],
+            "resume_optimizer": [
+                "resume", "cv", "bullet", "ats", "linkedin", "portfolio",
+                "cover letter", "rewrite", "quantify", "skills section",
+            ],
+            "application_scheduler": [
+                "schedule", "deadline", "timeline", "weekly plan",
+                "applications", "pipeline", "tracker", "cadence",
+                "how many", "priority", "calendar",
+            ],
+            "interview_coach": [
+                "interview", "behavioral", "star", "case", "technical interview",
+                "mock", "follow-up", "thank you", "salary", "negotiate",
+            ],
+        }
+        scored = []
+        for pid in candidate_ids:
+            if pid not in self.personas:
+                continue
+            score = 0
+            for kw in keyword_map.get(pid, []):
+                if kw in text:
+                    score += 2 if " " in kw else 1
+            # Prefer configured registration order (sort_order) as a light tiebreak
+            # rather than alphabetical filename order.
+            reg_index = list(self.personas.keys()).index(pid) if pid in self.personas else 99
+            scored.append((score, -reg_index, pid))
+        scored.sort(reverse=True)
+        return [pid for _, _, pid in scored]

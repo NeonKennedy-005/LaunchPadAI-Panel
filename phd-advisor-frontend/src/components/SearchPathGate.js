@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
 import './SearchPathGate.css';
 
+export const SEARCH_PATH_STORAGE_KEY = 'launchpadSearchPath';
+
 export const SEARCH_PATH_OPTIONS = [
   {
     value: 'Internship search',
@@ -17,8 +19,31 @@ export const SEARCH_PATH_OPTIONS = [
   },
 ];
 
+const KNOWN_PATHS = new Set([
+  ...SEARCH_PATH_OPTIONS.map((o) => o.value.toLowerCase()),
+  'both internship and ft',
+  'both',
+  'internship',
+  'full-time / entry-level',
+  'full-time',
+  'full time',
+]);
+
+function pathLooksKnown(value) {
+  if (!value) return false;
+  const normalized = String(value).toLowerCase();
+  if (KNOWN_PATHS.has(normalized)) return true;
+  return (
+    normalized.includes('internship')
+    || normalized.includes('full-time')
+    || normalized.includes('full time')
+    || normalized.includes('both')
+  );
+}
+
 /**
  * First-run gate: internship vs full-time changes advisor trajectory.
+ * Shown once until a known focus is saved (profile or localStorage).
  */
 const SearchPathGate = ({ authToken, onComplete }) => {
   const [selected, setSelected] = useState(null);
@@ -46,7 +71,7 @@ const SearchPathGate = ({ authToken, onComplete }) => {
         throw new Error(data.detail || 'Could not save your choice');
       }
       const profile = await resp.json();
-      localStorage.setItem('launchpadSearchPath', selected);
+      localStorage.setItem(SEARCH_PATH_STORAGE_KEY, selected);
       onComplete?.(profile, selected);
     } catch (e) {
       setError(e.message || 'Could not save your choice');
@@ -91,21 +116,34 @@ const SearchPathGate = ({ authToken, onComplete }) => {
           {saving ? 'Saving…' : 'Continue to advisors'}
           {!saving && <ArrowRight size={16} />}
         </button>
+        <button
+          type="button"
+          className="search-path-skip"
+          onClick={() => {
+            localStorage.setItem(SEARCH_PATH_STORAGE_KEY, 'Internship search');
+            onComplete?.(null, 'Internship search');
+          }}
+          disabled={saving}
+        >
+          Skip for now
+        </button>
       </div>
     </div>
   );
 };
 
 export function needsSearchPath(profile) {
+  try {
+    const stored = localStorage.getItem(SEARCH_PATH_STORAGE_KEY);
+    if (pathLooksKnown(stored)) {
+      return false;
+    }
+  } catch {
+    /* ignore */
+  }
   const role = profile?.cyber_role;
   if (!role) return true;
-  const normalized = String(role).toLowerCase();
-  return !(
-    normalized.includes('internship')
-    || normalized.includes('full-time')
-    || normalized.includes('full time')
-    || normalized.includes('both')
-  );
+  return !pathLooksKnown(role);
 }
 
 export default SearchPathGate;

@@ -65,6 +65,10 @@ COPY --chown=user multi_llm_chatbot_backend/ ./
 COPY --chown=user launchpad_config.yaml ./launchpad_config.yaml
 COPY --chown=user personas/ ./personas/
 
+# ---- Bundled career knowledge corpus (auto-seeded into Chroma at startup) ----
+COPY --chown=user knowledge/ ./knowledge/
+COPY --chown=user docs/ ./docs/
+
 # ---- Frontend bundle ------------------------------------------------------
 # main.py mounts $HOME/app/static at "/" so the SPA is served same-origin
 # with the API.

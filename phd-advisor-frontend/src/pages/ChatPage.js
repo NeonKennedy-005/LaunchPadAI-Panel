@@ -19,7 +19,7 @@ import SearchPathGate, { needsSearchPath } from '../components/SearchPathGate';
 import ClearDataModal from '../components/ClearDataModal';
 import AccountModal from '../components/AccountModal';
 
-const ACTIVE_ADVISORS_STORAGE_KEY = 'muscleGrowthActiveAdvisorIds';
+const ACTIVE_ADVISORS_STORAGE_KEY = 'launchpadActiveAdvisorIds';
 
 const ChatPage = ({ user, authToken, onNavigateToHome, onNavigateToCanvas, onSignOut }) => {
   const { config, advisors, getAdvisorColors } = useAppConfig();
@@ -77,12 +77,13 @@ const ChatPage = ({ user, authToken, onNavigateToHome, onNavigateToCanvas, onSig
       if (resp.ok) {
         const profile = await resp.json();
         setUserProfile(profile);
+        // Only show the focus gate once — needsSearchPath also honors localStorage
         setShowSearchPathGate(needsSearchPath(profile));
       } else {
-        setShowSearchPathGate(true);
+        setShowSearchPathGate(needsSearchPath(null));
       }
     } catch (e) {
-      setShowSearchPathGate(true);
+      setShowSearchPathGate(needsSearchPath(null));
     } finally {
       setProfileLoaded(true);
     }
@@ -103,7 +104,10 @@ const ChatPage = ({ user, authToken, onNavigateToHome, onNavigateToCanvas, onSig
       let next = prev.filter((id) => allIds.includes(id));
       if (next.length === 0) {
         try {
-          const stored = JSON.parse(localStorage.getItem(ACTIVE_ADVISORS_STORAGE_KEY) || 'null');
+          const raw =
+            localStorage.getItem(ACTIVE_ADVISORS_STORAGE_KEY)
+            || localStorage.getItem('muscleGrowthActiveAdvisorIds');
+          const stored = JSON.parse(raw || 'null');
           if (Array.isArray(stored)) {
             const valid = stored.filter((id) => allIds.includes(id));
             if (valid.length > 0) next = valid;
@@ -1144,7 +1148,7 @@ const handleNewChat = async (sessionId = null) => {
         <SearchPathGate
           authToken={authToken}
           onComplete={(profile) => {
-            setUserProfile(profile);
+            if (profile) setUserProfile(profile);
             setShowSearchPathGate(false);
           }}
         />
